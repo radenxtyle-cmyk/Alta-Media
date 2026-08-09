@@ -23,6 +23,14 @@ export interface Stat {
   label: string;
 }
 
+export interface SocialLink {
+  id: string;
+  name: string;
+  url: string;
+  icon: string;
+  enabled?: boolean;
+}
+
 export interface SiteConfig {
   header: {
     logoText: string;
@@ -57,5 +65,13 @@ export interface SiteConfig {
   footer: {
     cta: string;
     community: string;
+    stayConnectedText?: string;
+    communityTitle?: string;
+    communityDescription?: string;
+    socials?: SocialLink[];
+    brandTagline?: string;
+    copyrightText?: string;
+    copyrightLinkText?: string;
+    copyrightLinkUrl?: string;
   };
 }

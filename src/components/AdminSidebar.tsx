@@ -291,12 +291,238 @@ export default function AdminSidebar({ config, onChange }: Props) {
         </h3>
         <div className="space-y-3">
           <div>
-            <label className="block text-[11px] font-medium text-gray-500 mb-2">CTA Text</label>
-            <input type="text" value={config.footer.cta} onChange={(e) => updateConfig('footer', 'cta', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Badge Text</label>
+            <input 
+              type="text" 
+              value={config.footer.stayConnectedText ?? 'STAY CONNECTED'} 
+              onChange={(e) => updateConfig('footer', 'stayConnectedText', e.target.value)} 
+              className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+              placeholder="STAY CONNECTED"
+            />
           </div>
+
           <div>
-            <label className="block text-[11px] font-medium text-gray-500 mb-2">Community Text</label>
-            <input type="text" value={config.footer.community} onChange={(e) => updateConfig('footer', 'community', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Community Title</label>
+            <input 
+              type="text" 
+              value={config.footer.communityTitle ?? config.footer.community ?? 'Join the Community'} 
+              onChange={(e) => {
+                onChange({
+                  ...config,
+                  footer: {
+                    ...config.footer,
+                    communityTitle: e.target.value,
+                    community: e.target.value
+                  }
+                });
+              }} 
+              className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+              placeholder="Join the Community"
+            />
+          </div>
+
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Community Description</label>
+            <textarea 
+              value={config.footer.communityDescription ?? 'Get updates, ask doubts, and access premium notes — connect with us on every platform.'} 
+              onChange={(e) => updateConfig('footer', 'communityDescription', e.target.value)} 
+              className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none h-16 resize-none" 
+              placeholder="Get updates, ask doubts, and access premium notes..."
+            />
+          </div>
+
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Brand Tagline</label>
+            <input 
+              type="text" 
+              value={config.footer.brandTagline || ''} 
+              onChange={(e) => updateConfig('footer', 'brandTagline', e.target.value)} 
+              className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+              placeholder="LEARN · CODE · BUILD · SUCCEED"
+            />
+          </div>
+
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Copyright Text</label>
+            <input 
+              type="text" 
+              value={config.footer.copyrightText || ''} 
+              onChange={(e) => updateConfig('footer', 'copyrightText', e.target.value)} 
+              className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+              placeholder="© 2026 Code With AI. All rights reserved."
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-2">
+            <div>
+              <label className="block text-[11px] font-medium text-gray-500 mb-1">Link Label</label>
+              <input 
+                type="text" 
+                value={config.footer.copyrightLinkText || ''} 
+                onChange={(e) => updateConfig('footer', 'copyrightLinkText', e.target.value)} 
+                className="w-full px-2 py-1.5 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+                placeholder="Telegram"
+              />
+            </div>
+            <div>
+              <label className="block text-[11px] font-medium text-gray-500 mb-1">Link URL</label>
+              <input 
+                type="text" 
+                value={config.footer.copyrightLinkUrl || ''} 
+                onChange={(e) => updateConfig('footer', 'copyrightLinkUrl', e.target.value)} 
+                className="w-full px-2 py-1.5 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+                placeholder="https://t.me"
+              />
+            </div>
+          </div>
+
+          {/* Social Links Editor */}
+          <div className="pt-2 border-t border-[#222]">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-semibold text-gray-300">Social Media Buttons</span>
+              <button 
+                onClick={() => {
+                  const currentSocials = config.footer.socials || [
+                    { id: '1', name: 'Telegram', url: 'https://t.me', icon: 'Telegram', enabled: true },
+                    { id: '2', name: 'YouTube', url: 'https://youtube.com', icon: 'Youtube', enabled: true },
+                    { id: '3', name: 'Instagram', url: 'https://instagram.com', icon: 'Instagram', enabled: true },
+                    { id: '4', name: 'Facebook', url: 'https://facebook.com', icon: 'Facebook', enabled: true }
+                  ];
+                  const newSocials = [...currentSocials, {
+                    id: Date.now().toString(),
+                    name: 'New Social',
+                    url: 'https://',
+                    icon: 'Telegram',
+                    enabled: true
+                  }];
+                  onChange({
+                    ...config,
+                    footer: {
+                      ...config.footer,
+                      socials: newSocials
+                    }
+                  });
+                }}
+                className="text-[10px] bg-[#222] hover:bg-[#333] px-2 py-1 rounded text-white"
+              >
+                + Add Social
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {(config.footer.socials || [
+                { id: '1', name: 'Telegram', url: 'https://t.me', icon: 'Telegram', enabled: true },
+                { id: '2', name: 'YouTube', url: 'https://youtube.com', icon: 'Youtube', enabled: true },
+                { id: '3', name: 'Instagram', url: 'https://instagram.com', icon: 'Instagram', enabled: true },
+                { id: '4', name: 'Facebook', url: 'https://facebook.com', icon: 'Facebook', enabled: true }
+              ]).map((social, index) => (
+                <div key={social.id} className="p-3 bg-[#1A1A1A] border border-[#333] rounded space-y-2 relative">
+                  <button 
+                    onClick={() => {
+                      const currentSocials = config.footer.socials || [];
+                      const newSocials = currentSocials.filter((_, i) => i !== index);
+                      onChange({
+                        ...config,
+                        footer: {
+                          ...config.footer,
+                          socials: newSocials
+                        }
+                      });
+                    }}
+                    className="absolute top-2 right-2 text-red-500 hover:text-red-400 text-[10px]"
+                  >
+                    Remove
+                  </button>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="block text-[10px] text-gray-500 mb-1">Platform Name</label>
+                      <input 
+                        type="text" 
+                        value={social.name} 
+                        onChange={(e) => {
+                          const currentSocials = [...(config.footer.socials || [])];
+                          currentSocials[index].name = e.target.value;
+                          onChange({
+                            ...config,
+                            footer: {
+                              ...config.footer,
+                              socials: currentSocials
+                            }
+                          });
+                        }} 
+                        className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] text-gray-500 mb-1">Icon Type</label>
+                      <select 
+                        value={social.icon} 
+                        onChange={(e) => {
+                          const currentSocials = [...(config.footer.socials || [])];
+                          currentSocials[index].icon = e.target.value;
+                          onChange({
+                            ...config,
+                            footer: {
+                              ...config.footer,
+                              socials: currentSocials
+                            }
+                          });
+                        }} 
+                        className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none"
+                      >
+                        <option value="Telegram">Telegram</option>
+                        <option value="Youtube">YouTube</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="Facebook">Facebook</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] text-gray-500 mb-1">URL</label>
+                    <input 
+                      type="text" 
+                      value={social.url} 
+                      onChange={(e) => {
+                        const currentSocials = [...(config.footer.socials || [])];
+                        currentSocials[index].url = e.target.value;
+                        onChange({
+                          ...config,
+                          footer: {
+                            ...config.footer,
+                            socials: currentSocials
+                          }
+                        });
+                      }} 
+                      className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+                    />
+                  </div>
+
+                  <div className="pt-1">
+                    <label className="flex items-center gap-2 text-[10px] text-gray-400 cursor-pointer">
+                      <input 
+                        type="checkbox" 
+                        checked={social.enabled !== false} 
+                        onChange={(e) => {
+                          const currentSocials = [...(config.footer.socials || [])];
+                          currentSocials[index].enabled = e.target.checked;
+                          onChange({
+                            ...config,
+                            footer: {
+                              ...config.footer,
+                              socials: currentSocials
+                            }
+                          });
+                        }} 
+                        className="rounded border-gray-400 bg-[#222]" 
+                      />
+                      Active / Enabled
+                    </label>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

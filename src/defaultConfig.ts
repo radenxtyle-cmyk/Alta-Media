@@ -54,5 +54,18 @@ export const defaultConfig: SiteConfig = {
   footer: {
     cta: 'Start with free notes — master with premium notes.',
     community: 'Join the Community',
+    stayConnectedText: 'STAY CONNECTED',
+    communityTitle: 'Join the Community',
+    communityDescription: 'Get updates, ask doubts, and access premium notes — connect with us on every platform.',
+    socials: [
+      { id: '1', name: 'Telegram', url: 'https://t.me', icon: 'Telegram', enabled: true },
+      { id: '2', name: 'YouTube', url: 'https://youtube.com', icon: 'Youtube', enabled: true },
+      { id: '3', name: 'Instagram', url: 'https://instagram.com', icon: 'Instagram', enabled: true },
+      { id: '4', name: 'Facebook', url: 'https://facebook.com', icon: 'Facebook', enabled: true }
+    ],
+    brandTagline: 'LEARN · CODE · BUILD · SUCCEED',
+    copyrightText: '© 2026 Code With AI. All rights reserved.',
+    copyrightLinkText: 'Telegram',
+    copyrightLinkUrl: 'https://t.me'
   }
 };
