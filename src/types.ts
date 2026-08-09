@@ -6,6 +6,8 @@ export interface Subject {
   category: string;
   previewUrl?: string;
   freeUrl?: string;
+  isFreeEnabled?: boolean;
+  isPremiumEnabled?: boolean;
 }
 
 export interface TopFeature {

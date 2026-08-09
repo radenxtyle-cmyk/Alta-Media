@@ -67,89 +67,6 @@ export default function AdminSidebar({ config, onChange }: Props) {
         </div>
       </div>
 
-      {/* Hero Content */}
-      <div className="space-y-4">
-        <h3 className="font-semibold flex items-center gap-2 text-gray-300 border-b border-[#222] pb-2 text-sm">
-          <Type size={16} /> Hero Section
-        </h3>
-        <div className="space-y-3">
-          <div>
-            <label className="block text-[11px] font-medium text-gray-500 mb-2">Tagline</label>
-            <input type="text" value={config.hero.tagline} onChange={(e) => updateConfig('hero', 'tagline', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
-          </div>
-          <div>
-            <label className="block text-[11px] font-medium text-gray-500 mb-2">Title</label>
-            <input type="text" value={config.hero.title} onChange={(e) => updateConfig('hero', 'title', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
-          </div>
-          <div>
-            <label className="block text-[11px] font-medium text-gray-500 mb-2">Subtitle</label>
-            <textarea value={config.hero.subtitle} onChange={(e) => updateConfig('hero', 'subtitle', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none h-20 resize-none" />
-          </div>
-        </div>
-      </div>
-
-      {/* Top Features Configuration */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between border-b border-[#222] pb-2">
-          <h3 className="font-semibold flex items-center gap-2 text-gray-300 text-sm">
-            <Columns size={16} /> Top Features Section
-          </h3>
-          <button 
-            onClick={() => {
-              const newFeatures = [...config.topFeatures, {
-                id: Date.now().toString(),
-                title: 'New Feature',
-                subtitle: 'Description',
-                icon: 'Star'
-              }];
-              onChange({ ...config, topFeatures: newFeatures });
-            }}
-            className="text-[10px] bg-[#222] hover:bg-[#333] px-2 py-1 rounded text-white"
-          >
-            + Add Feature
-          </button>
-        </div>
-        <div className="space-y-4 pr-2">
-          {config.topFeatures.map((feature, index) => (
-            <div key={feature.id} className="p-3 bg-[#1A1A1A] border border-[#333] rounded space-y-3 relative">
-              <button 
-                onClick={() => {
-                  const newFeatures = config.topFeatures.filter((_, i) => i !== index);
-                  onChange({ ...config, topFeatures: newFeatures });
-                }}
-                className="absolute top-2 right-2 text-red-500 hover:text-red-400 text-[10px]"
-              >
-                Remove
-              </button>
-              <div>
-                <label className="block text-[11px] font-medium text-gray-500 mb-1">Title</label>
-                <input type="text" value={feature.title} onChange={(e) => {
-                  const newFeatures = [...config.topFeatures];
-                  newFeatures[index].title = e.target.value;
-                  onChange({ ...config, topFeatures: newFeatures });
-                }} className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none pr-12" />
-              </div>
-              <div>
-                <label className="block text-[11px] font-medium text-gray-500 mb-1">Icon Name (Lucide)</label>
-                <input type="text" value={feature.icon} onChange={(e) => {
-                  const newFeatures = [...config.topFeatures];
-                  newFeatures[index].icon = e.target.value;
-                  onChange({ ...config, topFeatures: newFeatures });
-                }} className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
-              </div>
-              <div>
-                <label className="block text-[11px] font-medium text-gray-500 mb-1">Subtitle</label>
-                <textarea value={feature.subtitle} onChange={(e) => {
-                  const newFeatures = [...config.topFeatures];
-                  newFeatures[index].subtitle = e.target.value;
-                  onChange({ ...config, topFeatures: newFeatures });
-                }} className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none h-16 resize-none" />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Stats Configuration */}
       <div className="space-y-4">
         <div className="flex items-center justify-between border-b border-[#222] pb-2">
@@ -200,6 +117,27 @@ export default function AdminSidebar({ config, onChange }: Props) {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Hero Content */}
+      <div className="space-y-4">
+        <h3 className="font-semibold flex items-center gap-2 text-gray-300 border-b border-[#222] pb-2 text-sm">
+          <Type size={16} /> Hero Section
+        </h3>
+        <div className="space-y-3">
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Tagline</label>
+            <input type="text" value={config.hero.tagline} onChange={(e) => updateConfig('hero', 'tagline', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
+          </div>
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Title</label>
+            <input type="text" value={config.hero.title} onChange={(e) => updateConfig('hero', 'title', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
+          </div>
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Subtitle</label>
+            <textarea value={config.hero.subtitle} onChange={(e) => updateConfig('hero', 'subtitle', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none h-20 resize-none" />
+          </div>
         </div>
       </div>
 
@@ -289,6 +227,24 @@ export default function AdminSidebar({ config, onChange }: Props) {
                   newSubjects[index].freeUrl = e.target.value;
                   onChange({ ...config, subjects: newSubjects });
                 }} className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" placeholder="https://example.com/download.pdf" />
+              </div>
+              <div className="flex items-center gap-4 pt-2">
+                <label className="flex items-center gap-2 text-[11px] font-medium text-gray-500 cursor-pointer">
+                  <input type="checkbox" checked={subject.isFreeEnabled !== false} onChange={(e) => {
+                    const newSubjects = [...config.subjects];
+                    newSubjects[index].isFreeEnabled = e.target.checked;
+                    onChange({ ...config, subjects: newSubjects });
+                  }} className="rounded border-gray-400 bg-[#222]" />
+                  Enable Free
+                </label>
+                <label className="flex items-center gap-2 text-[11px] font-medium text-gray-500 cursor-pointer">
+                  <input type="checkbox" checked={subject.isPremiumEnabled !== false} onChange={(e) => {
+                    const newSubjects = [...config.subjects];
+                    newSubjects[index].isPremiumEnabled = e.target.checked;
+                    onChange({ ...config, subjects: newSubjects });
+                  }} className="rounded border-gray-400 bg-[#222]" />
+                  Enable Premium
+                </label>
               </div>
             </div>
           ))}

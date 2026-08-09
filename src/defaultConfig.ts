@@ -42,14 +42,14 @@ export const defaultConfig: SiteConfig = {
     { id: '4', value: 'Free', label: 'RESUME BUILDER' }
   ],
   subjects: [
-    { id: '1', title: 'Python', description: 'Basics to advanced - variables, loops, OOP, modules', icon: 'Terminal', category: 'Programming', previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' },
-    { id: '2', title: 'C Language', description: 'Core C programming - pointers, memory, functions', icon: 'Code', category: 'Programming', previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' },
-    { id: '3', title: 'C++', description: 'Object oriented programming, STL, and algorithms', icon: 'Code', category: 'Programming', previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' },
-    { id: '4', title: 'Operating System', description: 'Processes, scheduling, memory management, deadlocks', icon: 'Monitor', category: 'CS Core', previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' },
-    { id: '5', title: 'JavaScript', description: 'Modern JS - ES6+, DOM manipulation, async, APIs', icon: 'FileJson', category: 'Web Dev', previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' },
-    { id: '6', title: 'HTML', description: 'Web structure - tags, forms, semantic elements', icon: 'Layout', category: 'Web Dev', previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' },
-    { id: '7', title: 'CSS', description: 'Styling, Flexbox, Grid, animations - made easy', icon: 'Palette', category: 'Web Dev', previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' },
-    { id: '8', title: 'DBMS', description: 'SQL, ER diagrams, normalization, transactions', icon: 'Database', category: 'CS Core', previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' }
+    { id: '1', title: 'Python', description: 'Basics to advanced - variables, loops, OOP, modules', icon: 'Terminal', category: 'Programming', previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', isFreeEnabled: true, isPremiumEnabled: true },
+    { id: '2', title: 'C Language', description: 'Core C programming - pointers, memory, functions', icon: 'Code', category: 'Programming', previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', isFreeEnabled: true, isPremiumEnabled: true },
+    { id: '3', title: 'C++', description: 'Object oriented programming, STL, and algorithms', icon: 'Code', category: 'Programming', previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', isFreeEnabled: true, isPremiumEnabled: true },
+    { id: '4', title: 'Operating System', description: 'Processes, scheduling, memory management, deadlocks', icon: 'Monitor', category: 'CS Core', previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', isFreeEnabled: true, isPremiumEnabled: true },
+    { id: '5', title: 'JavaScript', description: 'Modern JS - ES6+, DOM manipulation, async, APIs', icon: 'FileJson', category: 'Web Dev', previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', isFreeEnabled: true, isPremiumEnabled: true },
+    { id: '6', title: 'HTML', description: 'Web structure - tags, forms, semantic elements', icon: 'Layout', category: 'Web Dev', previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', isFreeEnabled: true, isPremiumEnabled: true },
+    { id: '7', title: 'CSS', description: 'Styling, Flexbox, Grid, animations - made easy', icon: 'Palette', category: 'Web Dev', previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', isFreeEnabled: true, isPremiumEnabled: true },
+    { id: '8', title: 'DBMS', description: 'SQL, ER diagrams, normalization, transactions', icon: 'Database', category: 'CS Core', previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', isFreeEnabled: true, isPremiumEnabled: true }
   ],
   footer: {
     cta: 'Start with free notes — master with premium notes.',

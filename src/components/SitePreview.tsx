@@ -74,25 +74,36 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
 
         {/* Study Material */}
         <div>
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <div className="text-[10px] font-black tracking-widest uppercase mb-4 flex items-center justify-center gap-2" style={{ color: colors.primary }}>
+          <div className="max-w-2xl mb-10 text-left">
+            <div className="text-[10px] font-black tracking-widest uppercase mb-4 flex items-center gap-2" style={{ color: colors.primary }}>
               <Icons.Sparkles size={12} /> {config.hero.tagline}
             </div>
             <h2 className="text-3xl md:text-5xl font-black mb-5 tracking-tight">{config.hero.title}</h2>
             <p className="text-sm md:text-base leading-relaxed" style={{ color: colors.muted }}>{config.hero.subtitle}</p>
           </div>
 
-          <div className="flex justify-center gap-2 flex-wrap mb-10">
-            {categories.map((pill) => (
-              <button 
-                key={pill} 
-                onClick={() => setActiveCategory(pill)}
-                className="px-5 py-2 rounded-full text-[11px] font-bold transition-all uppercase tracking-wider cursor-pointer hover:brightness-110" 
-                style={activeCategory === pill ? { backgroundColor: colors.primary, color: colors.background } : { backgroundColor: colors.cardBg, color: colors.muted, border: `1px solid ${colors.border}` }}
-              >
-                {pill}
-              </button>
-            ))}
+          <div className="flex gap-2 flex-wrap mb-10">
+            {categories.map((pill) => {
+              let IconComponent;
+              switch (pill) {
+                case 'All': IconComponent = Icons.LayoutGrid; break;
+                case 'Programming': IconComponent = Icons.Code; break;
+                case 'Web Dev': IconComponent = Icons.Globe; break;
+                case 'CS Core': IconComponent = Icons.Cpu; break;
+                default: IconComponent = Icons.Folder; break;
+              }
+              return (
+                <button 
+                  key={pill} 
+                  onClick={() => setActiveCategory(pill)}
+                  className="px-5 py-2 rounded-full text-[11px] font-bold transition-all uppercase tracking-wider cursor-pointer hover:brightness-110 flex items-center gap-2" 
+                  style={activeCategory === pill ? { backgroundColor: colors.primary, color: colors.background } : { backgroundColor: colors.cardBg, color: colors.muted, border: `1px solid ${colors.border}` }}
+                >
+                  <IconComponent size={14} />
+                  {pill}
+                </button>
+              );
+            })}
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -108,13 +119,17 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
                   </div>
                 </div>
                 
-                <div className="mt-auto space-y-2 mb-6">
-                  <div className="flex items-center gap-1.5 text-[9px] font-bold px-2 py-1 rounded w-fit text-green-400 bg-green-400/10 uppercase tracking-wider">
-                    <Icons.CheckCircle size={10} /> FREE AVAILABLE
-                  </div>
-                  <div className="flex items-center gap-1.5 text-[9px] font-bold px-2 py-1 rounded w-fit text-orange-400 bg-orange-400/10 uppercase tracking-wider">
-                    <Icons.Send size={10} /> PREMIUM ON TELEGRAM
-                  </div>
+                <div className="mt-auto flex flex-row flex-wrap gap-2 mb-6">
+                  {s.isFreeEnabled !== false && (
+                    <div className="flex items-center gap-1.5 text-[9px] font-bold px-2 py-1 rounded w-fit text-green-400 bg-green-400/10 uppercase tracking-wider">
+                      <Icons.CheckCircle size={10} /> FREE
+                    </div>
+                  )}
+                  {s.isPremiumEnabled !== false && (
+                    <div className="flex items-center gap-1.5 text-[9px] font-bold px-2 py-1 rounded w-fit text-orange-400 bg-orange-400/10 uppercase tracking-wider">
+                      <Icons.Send size={10} /> PREMIUM
+                    </div>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-3 gap-2">
