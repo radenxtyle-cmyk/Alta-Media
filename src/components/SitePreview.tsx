@@ -52,7 +52,7 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
         </Link>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 space-y-20">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 space-y-12">
          
         {/* HERO SECTION */}
         <div className="text-center py-6 md:py-12 relative overflow-hidden">
@@ -62,52 +62,52 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
           </div>
 
           {/* Large Graphic Title */}
-          <div className="mb-8 flex flex-col items-center justify-center">
-            <h1 className="font-display text-6xl md:text-8xl lg:text-9xl font-black tracking-widest text-white drop-shadow-md uppercase">
+          <div className="mb-8 flex flex-col items-center justify-center px-2">
+            <h1 className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-wider sm:tracking-widest text-white drop-shadow-md uppercase break-all">
               {config.hero.titleTop ?? 'CODE'}
             </h1>
             {(config.hero.titleMiddle ?? 'WITH') ? (
-              <div className="text-xs md:text-sm font-bold tracking-[0.5em] uppercase text-gray-500 my-2">
+              <div className="text-[10px] sm:text-xs md:text-sm font-bold tracking-[0.3em] sm:tracking-[0.5em] uppercase text-gray-500 my-1.5 sm:my-2">
                 {config.hero.titleMiddle ?? 'WITH'}
               </div>
             ) : null}
-            <div className="font-display text-6xl md:text-8xl lg:text-9xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500 drop-shadow-[0_0_35px_rgba(0,229,255,0.4)]">
+            <div className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-wider sm:tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500 drop-shadow-[0_0_35px_rgba(0,229,255,0.4)] break-all">
               {config.hero.titleBottom ?? 'AI'}
             </div>
           </div>
 
           {/* Middle Badge Row */}
-          <div className="flex items-center justify-center gap-3 mb-8 max-w-3xl mx-auto overflow-x-auto py-1">
-            <div className="h-10 px-4 flex items-center gap-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-[10px] sm:text-xs tracking-wider uppercase shadow-lg whitespace-nowrap shrink-0">
-              <Icons.Zap size={14} className="fill-current" />
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3 mb-8 max-w-2xl mx-auto px-2">
+            <div className="w-full sm:w-auto px-3.5 sm:px-4 py-2.5 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-[10px] sm:text-xs tracking-wider uppercase shadow-lg text-center flex items-center justify-center gap-2">
+              <Icons.Zap size={14} className="fill-current shrink-0" />
               <span>{config.hero.subBadgeLeft || 'NOTES · RESUME BUILDER · COMMUNITY'}</span>
             </div>
-            <div className="h-10 px-4 flex items-center gap-2 rounded-lg bg-[#111025] border border-[#262445] text-gray-300 font-mono text-[10px] sm:text-xs whitespace-nowrap shrink-0">
+            <div className="w-full sm:w-auto px-3.5 sm:px-4 py-2.5 rounded-lg bg-[#111025] border border-[#262445] text-gray-300 font-mono text-[10px] sm:text-xs text-center flex items-center justify-center gap-1.5 flex-wrap">
               <span className="text-purple-400">print</span>
               <span className="text-gray-400">(</span>
               <span className="text-cyan-400">"{config.hero.subBadgeRight || 'Start learning for free'}"</span>
               <span className="text-gray-400">)</span>
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse ml-0.5"></span>
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse ml-0.5 shrink-0"></span>
             </div>
           </div>
 
           {/* Subtitle Paragraph */}
-          <p className="max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-gray-400 font-medium mb-10">
+          <p className="max-w-2xl mx-auto text-xs sm:text-sm md:text-base leading-relaxed text-gray-400 font-medium mb-8 sm:mb-10 px-2">
             {config.hero.subtitle}
           </p>
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-xs sm:max-w-none mx-auto">
             <a 
               href="#subjects" 
-              className="px-7 py-3.5 rounded-full text-xs font-bold text-white transition-all hover:scale-105 flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 shadow-[0_0_25px_rgba(99,102,241,0.4)]"
+              className="px-7 py-3.5 rounded-full text-xs font-bold text-white transition-all hover:scale-105 flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 shadow-[0_0_25px_rgba(99,102,241,0.4)]"
             >
               <Icons.BookOpen size={16} />
               <span>{config.hero.primaryCtaText || 'Browse Notes'}</span>
             </a>
             <a 
               href="#resume" 
-              className="px-7 py-3.5 rounded-full text-xs font-bold text-white transition-all hover:scale-105 flex items-center gap-2 border border-[#33315c] bg-[#131127] hover:border-cyan-500/50"
+              className="px-7 py-3.5 rounded-full text-xs font-bold text-white transition-all hover:scale-105 flex items-center justify-center gap-2 border border-[#33315c] bg-[#131127] hover:border-cyan-500/50"
             >
               <Icons.FileText size={16} />
               <span>{config.hero.secondaryCtaText || 'Build Resume Free'}</span>
@@ -277,9 +277,9 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
         </div>
 
         {/* Footer */}
-        <div id="community" className="pt-16 pb-12">
+        <div id="community" className="pt-2 pb-12">
           {/* Top Footer: Community & Socials */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-10">
             <div className="text-[11px] font-black tracking-widest uppercase mb-3 flex items-center justify-center gap-2 text-cyan-400">
               <Icons.MessageCircle size={14} /> {config.footer.stayConnectedText || 'STAY CONNECTED'}
             </div>
