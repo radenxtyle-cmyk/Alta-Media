@@ -4,12 +4,13 @@ import AdminSidebar from '../components/AdminSidebar';
 import SitePreview from '../components/SitePreview';
 import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import { defaultConfig } from '../defaultConfig';
+import { getConfigDoc, db } from '../firebase';
+import { setDoc, doc } from 'firebase/firestore';
 
 export default function AdminDashboard() {
   const [config, setConfig] = useState<SiteConfig | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isPublishing, setIsPublishing] = useState(false);
-  const [useLocalFallback, setUseLocalFallback] = useState(false);
   
   const [token, setToken] = useState<string | null>(localStorage.getItem('adminToken'));
   const [password, setPassword] = useState('');
@@ -19,101 +20,58 @@ export default function AdminDashboard() {
   useEffect(() => {
     if (!token) return;
 
-    fetch('/api/config')
-      .then(res => {
-        if (!res.ok) throw new Error("Network response was not ok");
-        return res.json();
-      })
-      .then(data => setConfig(data))
-      .catch(err => {
-        console.warn("Backend not available, falling back to local config.", err);
-        setUseLocalFallback(true);
-        const localConfig = localStorage.getItem('siteConfig');
-        if (localConfig) {
-          try {
-            setConfig(JSON.parse(localConfig));
-          } catch (e) {
-            setConfig(defaultConfig);
-          }
-        } else {
+    getConfigDoc().then(({ snap, configRef }) => {
+      if (snap.exists()) {
+        setConfig(snap.data() as SiteConfig);
+      } else {
+        setConfig(defaultConfig);
+        setDoc(configRef, defaultConfig).catch(console.error);
+      }
+    }).catch(err => {
+      console.error("Firebase read error", err);
+      // Fallback
+      const localConfig = localStorage.getItem('siteConfig');
+      if (localConfig) {
+        try {
+          setConfig(JSON.parse(localConfig));
+        } catch (e) {
           setConfig(defaultConfig);
         }
-      });
+      } else {
+        setConfig(defaultConfig);
+      }
+    });
   }, [token]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoggingIn(true);
     setLoginError('');
-    try {
-      const res = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password })
-      });
-      
-      const contentType = res.headers.get("content-type");
-      if (contentType && contentType.indexOf("application/json") !== -1) {
-        if (!res.ok) throw new Error('Invalid password');
-        const data = await res.json();
-        setToken(data.token);
-        localStorage.setItem('adminToken', data.token);
+    // Mock login for frontend since we don't have Firebase Auth set up for the admin
+    setTimeout(() => {
+      if (password === 'admin123') {
+        const localToken = 'local-admin-token';
+        setToken(localToken);
+        localStorage.setItem('adminToken', localToken);
       } else {
-        throw new Error('API not available');
-      }
-    } catch (err: any) {
-      if (err.message === 'Invalid password') {
         setLoginError('Invalid password. Hint: default is admin123');
-      } else {
-        if (password === 'admin123') {
-          const localToken = 'local-admin-token';
-          setToken(localToken);
-          localStorage.setItem('adminToken', localToken);
-        } else {
-          setLoginError('Invalid password. Hint: default is admin123');
-        }
       }
-    } finally {
       setIsLoggingIn(false);
-    }
+    }, 500);
   };
 
   const handlePublish = async () => {
     if (!config) return;
     setIsPublishing(true);
     
-    if (useLocalFallback) {
-      // Simulate network request then save to localStorage
-      setTimeout(() => {
-        localStorage.setItem('siteConfig', JSON.stringify(config));
-        alert('Site published successfully (saved to browser local storage)!');
-        setIsPublishing(false);
-      }, 500);
-      return;
-    }
-
     try {
-      const res = await fetch('/api/config', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}` 
-        },
-        body: JSON.stringify(config),
-      });
-      if (res.status === 401) {
-        setToken(null);
-        localStorage.removeItem('adminToken');
-        alert('Session expired. Please log in again.');
-        return;
-      }
-      if (!res.ok) throw new Error("Failed to save");
-      alert('Site published successfully!');
+      const configRef = doc(db, 'app', 'config');
+      await setDoc(configRef, config);
+      alert('Site published successfully to online database!');
     } catch (err) {
       console.error("Failed to publish", err);
       // Fallback
       localStorage.setItem('siteConfig', JSON.stringify(config));
-      setUseLocalFallback(true);
       alert('Failed to publish to server, but changes were saved locally to your browser!');
     } finally {
       setIsPublishing(false);
