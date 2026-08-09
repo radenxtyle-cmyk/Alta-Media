@@ -27,7 +27,7 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
     >
       {/* Header */}
       <header className="flex items-center justify-between px-6 py-4 border-b" style={{ borderColor: colors.border }}>
-        <div className="text-xl font-black tracking-widest uppercase flex items-center gap-2" style={{ color: colors.primary }}>
+        <div className="font-display text-xl font-black tracking-widest uppercase flex items-center gap-2" style={{ color: colors.primary }}>
           <Icons.Code2 size={24} />
           {config.header.logoText}
         </div>
@@ -78,7 +78,7 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
             <div className="text-[10px] font-black tracking-widest uppercase mb-4 flex items-center gap-2" style={{ color: colors.primary }}>
               <Icons.Sparkles size={12} /> {config.hero.tagline}
             </div>
-            <h2 className="text-3xl md:text-5xl font-black mb-5 tracking-tight">{config.hero.title}</h2>
+            <h2 className="font-display text-3xl md:text-5xl font-black mb-5 tracking-tight">{config.hero.title}</h2>
             <p className="text-sm md:text-base leading-relaxed" style={{ color: colors.muted }}>
               {(() => {
                 const text = config.hero.subtitle || '';
@@ -229,7 +229,7 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
             <div className="text-[11px] font-black tracking-widest uppercase mb-3 flex items-center justify-center gap-2 text-cyan-400">
               <Icons.MessageCircle size={14} /> {config.footer.stayConnectedText || 'STAY CONNECTED'}
             </div>
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4">{config.footer.communityTitle || config.footer.community || 'Join the Community'}</h2>
+            <h2 className="font-display text-3xl md:text-5xl font-black tracking-tight mb-4">{config.footer.communityTitle || config.footer.community || 'Join the Community'}</h2>
             <p className="text-xs md:text-sm max-w-xl mx-auto leading-relaxed mb-8 font-medium" style={{ color: colors.muted }}>
               {config.footer.communityDescription || 'Get updates, ask doubts, and access premium notes — connect with us on every platform.'}
             </p>
@@ -284,7 +284,7 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
                     style={{ backgroundColor: colors.cardBg, borderColor: colors.border, color: colors.text }}
                   >
                     {getSocialIcon(social.icon)}
-                    <span>{social.name}</span>
+                    <span className="font-display font-bold">{social.name}</span>
                   </a>
                 );
               })}
@@ -293,7 +293,7 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
 
           {/* Bottom Footer Section */}
           <div className="w-full border-t pt-10 pb-6 text-center" style={{ borderColor: colors.border }}>
-            <div className="text-xl font-black tracking-widest uppercase mb-2" style={{ color: colors.primary }}>
+            <div className="font-display text-xl font-black tracking-widest uppercase mb-2" style={{ color: colors.primary }}>
               {config.header.logoText}
             </div>
             <div className="text-[10px] font-bold tracking-[0.25em] uppercase mb-8" style={{ color: colors.muted }}>
