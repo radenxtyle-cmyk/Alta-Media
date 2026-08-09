@@ -39,7 +39,14 @@ export interface SiteConfig {
   hero: {
     tagline: string;
     title: string;
+    titleTop?: string;
+    titleMiddle?: string;
+    titleBottom?: string;
     subtitle: string;
+    subBadgeLeft?: string;
+    subBadgeRight?: string;
+    primaryCtaText?: string;
+    secondaryCtaText?: string;
   };
   resume: {
     tagline: string;

@@ -1,5 +1,5 @@
 import { SiteConfig } from '../types';
-import { Type, Palette, Layout, Columns } from 'lucide-react';
+import { Type, Palette, Layout, Columns, Grid } from 'lucide-react';
 
 interface Props {
   config: SiteConfig;
@@ -64,6 +64,190 @@ export default function AdminSidebar({ config, onChange }: Props) {
             <label className="block text-[11px] font-medium text-gray-500 mb-2">Categories (comma separated)</label>
             <input type="text" value={(config.categories || ['All', 'Programming', 'Web Dev', 'CS Core']).join(', ')} onChange={(e) => onChange({...config, categories: e.target.value.split(',').map(s => s.trim()).filter(Boolean)})} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
           </div>
+        </div>
+      </div>
+
+      {/* Hero Section Controls */}
+      <div className="space-y-4">
+        <h3 className="font-semibold flex items-center gap-2 text-gray-300 border-b border-[#222] pb-2 text-sm">
+          <Type size={16} /> Hero Section
+        </h3>
+        <div className="space-y-3">
+          <div className="grid grid-cols-3 gap-2 p-2.5 bg-[#151515] border border-[#2b2b2b] rounded-lg">
+            <div>
+              <label className="block text-[10px] font-bold text-gray-400 mb-1">Title Top</label>
+              <input 
+                type="text" 
+                value={config.hero.titleTop ?? 'CODE'} 
+                onChange={(e) => updateConfig('hero', 'titleTop', e.target.value)} 
+                className="w-full px-2 py-1 bg-[#202020] border border-[#383838] rounded text-xs font-bold text-white focus:border-cyan-500 outline-none" 
+                placeholder="CODE"
+              />
+            </div>
+            <div>
+              <label className="block text-[10px] font-bold text-gray-400 mb-1">Middle Word</label>
+              <input 
+                type="text" 
+                value={config.hero.titleMiddle ?? 'WITH'} 
+                onChange={(e) => updateConfig('hero', 'titleMiddle', e.target.value)} 
+                className="w-full px-2 py-1 bg-[#202020] border border-[#383838] rounded text-xs text-gray-300 focus:border-cyan-500 outline-none" 
+                placeholder="WITH"
+              />
+            </div>
+            <div>
+              <label className="block text-[10px] font-bold text-cyan-400 mb-1">Gradient Word</label>
+              <input 
+                type="text" 
+                value={config.hero.titleBottom ?? 'AI'} 
+                onChange={(e) => updateConfig('hero', 'titleBottom', e.target.value)} 
+                className="w-full px-2 py-1 bg-[#202020] border border-[#383838] rounded text-xs font-bold text-cyan-400 focus:border-cyan-500 outline-none" 
+                placeholder="AI"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-1">Top Pill Badge</label>
+            <input 
+              type="text" 
+              value={config.hero.tagline || ''} 
+              onChange={(e) => updateConfig('hero', 'tagline', e.target.value)} 
+              className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+              placeholder="</> Free & Premium Study Material"
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-1">Hero Subtitle / Description</label>
+            <textarea 
+              value={config.hero.subtitle || ''} 
+              onChange={(e) => updateConfig('hero', 'subtitle', e.target.value)} 
+              className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none h-20 resize-none" 
+              placeholder="Everything you need in one place..."
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-1">Badge Left (Purple Pill)</label>
+            <input 
+              type="text" 
+              value={config.hero.subBadgeLeft || ''} 
+              onChange={(e) => updateConfig('hero', 'subBadgeLeft', e.target.value)} 
+              className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+              placeholder="NOTES · RESUME BUILDER · COMMUNITY"
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-1">Badge Right (Console Code)</label>
+            <input 
+              type="text" 
+              value={config.hero.subBadgeRight || ''} 
+              onChange={(e) => updateConfig('hero', 'subBadgeRight', e.target.value)} 
+              className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+              placeholder='print ( "Start learning for free" )'
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <div>
+              <label className="block text-[11px] font-medium text-gray-500 mb-1">Primary Button</label>
+              <input 
+                type="text" 
+                value={config.hero.primaryCtaText || ''} 
+                onChange={(e) => updateConfig('hero', 'primaryCtaText', e.target.value)} 
+                className="w-full px-2 py-1.5 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+                placeholder="Browse Notes"
+              />
+            </div>
+            <div>
+              <label className="block text-[11px] font-medium text-gray-500 mb-1">Secondary Button</label>
+              <input 
+                type="text" 
+                value={config.hero.secondaryCtaText || ''} 
+                onChange={(e) => updateConfig('hero', 'secondaryCtaText', e.target.value)} 
+                className="w-full px-2 py-1.5 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+                placeholder="Build Resume Free"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Top Features Cards Section */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between border-b border-[#222] pb-2">
+          <h3 className="font-semibold flex items-center gap-2 text-gray-300 text-sm">
+            <Grid size={16} /> Top Features (Cards)
+          </h3>
+          <button 
+            onClick={() => {
+              const currentFeatures = config.topFeatures || [];
+              const newFeatures = [...currentFeatures, {
+                id: Date.now().toString(),
+                title: 'NEW FEATURE',
+                subtitle: 'Feature description text here',
+                icon: 'Sparkles'
+              }];
+              onChange({ ...config, topFeatures: newFeatures });
+            }}
+            className="text-[10px] bg-[#222] hover:bg-[#333] px-2 py-1 rounded text-white"
+          >
+            + Add Card
+          </button>
+        </div>
+        <div className="space-y-4 pr-2">
+          {(config.topFeatures || []).map((feature, index) => (
+            <div key={feature.id} className="p-3 bg-[#1A1A1A] border border-[#333] rounded space-y-3 relative">
+              <button 
+                onClick={() => {
+                  const currentFeatures = config.topFeatures || [];
+                  const newFeatures = currentFeatures.filter((_, i) => i !== index);
+                  onChange({ ...config, topFeatures: newFeatures });
+                }}
+                className="absolute top-2 right-2 text-red-500 hover:text-red-400 text-[10px]"
+              >
+                Remove
+              </button>
+              <div>
+                <label className="block text-[11px] font-medium text-gray-500 mb-1">Title</label>
+                <input 
+                  type="text" 
+                  value={feature.title} 
+                  onChange={(e) => {
+                    const newFeatures = [...(config.topFeatures || [])];
+                    newFeatures[index].title = e.target.value;
+                    onChange({ ...config, topFeatures: newFeatures });
+                  }} 
+                  className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none pr-12 font-bold" 
+                  placeholder="VIDEO TUTORIALS"
+                />
+              </div>
+              <div>
+                <label className="block text-[11px] font-medium text-gray-500 mb-1">Icon Name (Lucide)</label>
+                <input 
+                  type="text" 
+                  value={feature.icon} 
+                  onChange={(e) => {
+                    const newFeatures = [...(config.topFeatures || [])];
+                    newFeatures[index].icon = e.target.value;
+                    onChange({ ...config, topFeatures: newFeatures });
+                  }} 
+                  className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+                  placeholder="Youtube, FileText, Send, Eye, FileCheck..."
+                />
+              </div>
+              <div>
+                <label className="block text-[11px] font-medium text-gray-500 mb-1">Subtitle / Description</label>
+                <textarea 
+                  value={feature.subtitle} 
+                  onChange={(e) => {
+                    const newFeatures = [...(config.topFeatures || [])];
+                    newFeatures[index].subtitle = e.target.value;
+                    onChange({ ...config, topFeatures: newFeatures });
+                  }} 
+                  className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none h-14 resize-none" 
+                  placeholder="Feature description..."
+                />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

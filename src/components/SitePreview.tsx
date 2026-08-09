@@ -27,14 +27,18 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
     >
       {/* Header */}
       <header className="flex items-center justify-between px-6 py-4 border-b" style={{ borderColor: colors.border }}>
-        <div className="font-display text-xl font-black tracking-widest uppercase flex items-center gap-2" style={{ color: colors.primary }}>
-          <Icons.Code2 size={24} />
-          {config.header.logoText}
+        <div className="flex flex-col">
+          <div className="font-display text-lg md:text-xl font-black tracking-widest uppercase flex items-center gap-2" style={{ color: colors.primary }}>
+            {config.header.logoText}
+          </div>
+          <div className="text-[9px] font-bold tracking-[0.25em] uppercase text-gray-400">
+            {config.footer.brandTagline || 'LEARN · CODE · BUILD'}
+          </div>
         </div>
         <div className="hidden md:flex items-center gap-6 text-[11px] font-bold tracking-widest uppercase" style={{ color: colors.muted }}>
-          <span className="flex items-center gap-2 hover:text-white cursor-pointer transition-colors"><Icons.FileText size={14}/> Notes</span>
-          <span className="flex items-center gap-2 hover:text-white cursor-pointer transition-colors"><Icons.Wrench size={14}/> Tools</span>
-          <span className="flex items-center gap-2 hover:text-white cursor-pointer transition-colors"><Icons.Users size={14}/> Community</span>
+          <a href="#subjects" className="flex items-center gap-2 hover:text-white transition-colors"><Icons.BookOpen size={14}/> Notes</a>
+          <a href="#resume" className="flex items-center gap-2 hover:text-white transition-colors"><Icons.Wrench size={14}/> Tools</a>
+          <a href="#community" className="flex items-center gap-2 hover:text-white transition-colors"><Icons.Users size={14}/> Community</a>
         </div>
         <Link to="/admin">
           <button 
@@ -47,16 +51,77 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
         </Link>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 space-y-24">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 space-y-20">
          
+        {/* HERO SECTION */}
+        <div className="text-center py-6 md:py-12 relative overflow-hidden">
+          {/* Top Pill Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/30 text-cyan-400 text-xs font-mono mb-8 shadow-[0_0_15px_rgba(0,229,255,0.15)]">
+            <span>{config.hero.tagline || '</> Free & Premium Study Material'}</span>
+          </div>
+
+          {/* Large Graphic Title */}
+          <div className="mb-8 flex flex-col items-center justify-center">
+            <h1 className="font-display text-6xl md:text-8xl lg:text-9xl font-black tracking-widest text-white drop-shadow-md uppercase">
+              {config.hero.titleTop ?? 'CODE'}
+            </h1>
+            {(config.hero.titleMiddle ?? 'WITH') ? (
+              <div className="text-xs md:text-sm font-bold tracking-[0.5em] uppercase text-gray-500 my-2">
+                {config.hero.titleMiddle ?? 'WITH'}
+              </div>
+            ) : null}
+            <div className="font-display text-6xl md:text-8xl lg:text-9xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500 drop-shadow-[0_0_35px_rgba(0,229,255,0.4)]">
+              {config.hero.titleBottom ?? 'AI'}
+            </div>
+          </div>
+
+          {/* Middle Badge Row */}
+          <div className="flex items-center justify-center gap-3 mb-8 max-w-3xl mx-auto overflow-x-auto py-1">
+            <div className="h-10 px-4 flex items-center gap-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-[10px] sm:text-xs tracking-wider uppercase shadow-lg whitespace-nowrap shrink-0">
+              <Icons.Zap size={14} className="fill-current" />
+              <span>{config.hero.subBadgeLeft || 'NOTES · RESUME BUILDER · COMMUNITY'}</span>
+            </div>
+            <div className="h-10 px-4 flex items-center gap-2 rounded-lg bg-[#111025] border border-[#262445] text-gray-300 font-mono text-[10px] sm:text-xs whitespace-nowrap shrink-0">
+              <span className="text-purple-400">print</span>
+              <span className="text-gray-400">(</span>
+              <span className="text-cyan-400">"{config.hero.subBadgeRight || 'Start learning for free'}"</span>
+              <span className="text-gray-400">)</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse ml-0.5"></span>
+            </div>
+          </div>
+
+          {/* Subtitle Paragraph */}
+          <p className="max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-gray-400 font-medium mb-10">
+            {config.hero.subtitle}
+          </p>
+
+          {/* Action Buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <a 
+              href="#subjects" 
+              className="px-7 py-3.5 rounded-full text-xs font-bold text-white transition-all hover:scale-105 flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 shadow-[0_0_25px_rgba(99,102,241,0.4)]"
+            >
+              <Icons.BookOpen size={16} />
+              <span>{config.hero.primaryCtaText || 'Browse Notes'}</span>
+            </a>
+            <a 
+              href="#resume" 
+              className="px-7 py-3.5 rounded-full text-xs font-bold text-white transition-all hover:scale-105 flex items-center gap-2 border border-[#33315c] bg-[#131127] hover:border-cyan-500/50"
+            >
+              <Icons.FileText size={16} />
+              <span>{config.hero.secondaryCtaText || 'Build Resume Free'}</span>
+            </a>
+          </div>
+        </div>
+
         {/* Top Features */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          {config.topFeatures.map(f => (
+          {(config.topFeatures || []).map(f => (
             <div key={f.id} className="p-4 rounded-xl border border-transparent transition-all hover:shadow-[0_0_20px_rgba(0,229,255,0.15)] group" style={{ backgroundColor: colors.cardBg, borderColor: colors.border }}>
               <div className="mb-4 w-10 h-10 rounded-lg flex items-center justify-center bg-white/5 group-hover:scale-110 transition-transform shadow-inner" style={{ color: colors.primary }}>
                 {getIcon(f.icon, 20)}
               </div>
-              <h4 className="text-[11px] font-black tracking-wider uppercase mb-1.5">{f.title}</h4>
+              <h4 className="font-display text-[11px] font-black tracking-wider uppercase mb-1.5">{f.title}</h4>
               <p className="text-[10px] leading-relaxed" style={{ color: colors.muted }}>{f.subtitle}</p>
             </div>
           ))}
@@ -73,26 +138,14 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
         </div>
 
         {/* Study Material */}
-        <div>
+        <div id="subjects">
           <div className="max-w-2xl mb-10 text-left">
             <div className="text-[10px] font-black tracking-widest uppercase mb-4 flex items-center gap-2" style={{ color: colors.primary }}>
               <Icons.Sparkles size={12} /> {config.hero.tagline}
             </div>
-            <h2 className="font-display text-3xl md:text-5xl font-black mb-5 tracking-tight">{config.hero.title}</h2>
+            <h2 className="font-display text-3xl md:text-5xl font-black mb-5 tracking-tight">Notes For Every Subject</h2>
             <p className="text-sm md:text-base leading-relaxed" style={{ color: colors.muted }}>
-              {(() => {
-                const text = config.hero.subtitle || '';
-                const parts = text.split(/(Free|Paid)/g);
-                return parts.map((part, i) => {
-                  if (part === 'Free') {
-                    return <span key={i} className="font-bold text-emerald-400">Free</span>;
-                  }
-                  if (part === 'Paid') {
-                    return <span key={i} className="font-bold text-amber-500">Paid</span>;
-                  }
-                  return part;
-                });
-              })()}
+              Every subject has a Free version you can download right now. Click Paid to get the detailed premium version via Telegram.
             </p>
           </div>
 
@@ -182,7 +235,7 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
         </div>
 
         {/* Resume Section */}
-        <div>
+        <div id="resume">
           <div className="text-center max-w-2xl mx-auto pt-4 mb-10">
             <div className="text-[10px] font-black tracking-widest uppercase mb-4 flex items-center justify-center gap-2" style={{ color: colors.primary }}>
               <Icons.Award size={12} /> {config.resume.tagline}
@@ -223,7 +276,7 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
         </div>
 
         {/* Footer */}
-        <div className="pt-16 pb-12">
+        <div id="community" className="pt-16 pb-12">
           {/* Top Footer: Community & Socials */}
           <div className="text-center mb-16">
             <div className="text-[11px] font-black tracking-widest uppercase mb-3 flex items-center justify-center gap-2 text-cyan-400">
