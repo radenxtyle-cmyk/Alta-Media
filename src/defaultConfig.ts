@@ -27,6 +27,7 @@ export const defaultConfig: SiteConfig = {
     text: '#ffffff',
     muted: '#8a8dab',
   },
+  categories: ['All', 'Programming', 'Web Dev', 'CS Core'],
   topFeatures: [
     { id: '1', title: 'VIDEO TUTORIALS', subtitle: 'Watch concept videos on YouTube - beginner to advanced', icon: 'Youtube' },
     { id: '2', title: 'FREE PDF NOTES', subtitle: 'Download clean notes for every subject - no signup', icon: 'FileText' },
@@ -38,17 +39,17 @@ export const defaultConfig: SiteConfig = {
     { id: '1', value: '8+', label: 'SUBJECTS COVERED' },
     { id: '2', value: '100%', label: 'FREE PDFS' },
     { id: '3', value: '24/7', label: 'TELEGRAM SUPPORT' },
-    { id: '4', value: 'Free', label: 'RESUME BUILDER' },
+    { id: '4', value: 'Free', label: 'RESUME BUILDER' }
   ],
   subjects: [
-    { id: '1', title: 'Python', description: 'Basics to advanced - variables, loops, OOP, modules', icon: 'Terminal' },
-    { id: '2', title: 'C Language', description: 'Core C programming - pointers, memory, functions', icon: 'Code' },
-    { id: '3', title: 'C++', description: 'Object oriented programming, STL, and algorithms', icon: 'Code' },
-    { id: '4', title: 'Operating System', description: 'Processes, scheduling, memory management, deadlocks', icon: 'Monitor' },
-    { id: '5', title: 'JavaScript', description: 'Modern JS - ES6+, DOM manipulation, async, APIs', icon: 'FileJson' },
-    { id: '6', title: 'HTML', description: 'Web structure - tags, forms, semantic elements', icon: 'Layout' },
-    { id: '7', title: 'CSS', description: 'Styling, Flexbox, Grid, animations - made easy', icon: 'Palette' },
-    { id: '8', title: 'DBMS', description: 'SQL, ER diagrams, normalization, transactions', icon: 'Database' }
+    { id: '1', title: 'Python', description: 'Basics to advanced - variables, loops, OOP, modules', icon: 'Terminal', category: 'Programming' },
+    { id: '2', title: 'C Language', description: 'Core C programming - pointers, memory, functions', icon: 'Code', category: 'Programming' },
+    { id: '3', title: 'C++', description: 'Object oriented programming, STL, and algorithms', icon: 'Code', category: 'Programming' },
+    { id: '4', title: 'Operating System', description: 'Processes, scheduling, memory management, deadlocks', icon: 'Monitor', category: 'CS Core' },
+    { id: '5', title: 'JavaScript', description: 'Modern JS - ES6+, DOM manipulation, async, APIs', icon: 'FileJson', category: 'Web Dev' },
+    { id: '6', title: 'HTML', description: 'Web structure - tags, forms, semantic elements', icon: 'Layout', category: 'Web Dev' },
+    { id: '7', title: 'CSS', description: 'Styling, Flexbox, Grid, animations - made easy', icon: 'Palette', category: 'Web Dev' },
+    { id: '8', title: 'DBMS', description: 'SQL, ER diagrams, normalization, transactions', icon: 'Database', category: 'CS Core' }
   ],
   footer: {
     cta: 'Start with free notes — master with premium notes.',

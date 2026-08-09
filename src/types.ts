@@ -3,6 +3,7 @@ export interface Subject {
   title: string;
   description: string;
   icon: string;
+  category: string;
 }
 
 export interface TopFeature {
@@ -45,6 +46,7 @@ export interface SiteConfig {
     text: string;
     muted: string;
   };
+  categories: string[];
   topFeatures: TopFeature[];
   stats: Stat[];
   subjects: Subject[];

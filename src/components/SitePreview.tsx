@@ -1,13 +1,21 @@
 import { SiteConfig } from '../types';
 import * as Icons from 'lucide-react';
+import { useState } from 'react';
 
 export default function SitePreview({ config }: { config: SiteConfig }) {
+  const categories = config.categories || ['All', 'Programming', 'Web Dev', 'CS Core'];
+  const [activeCategory, setActiveCategory] = useState(categories[0] || 'All');
+
   const getIcon = (name: string, size = 20) => {
     const Icon = (Icons as any)[name] || Icons.Code;
     return <Icon size={size} />;
   };
 
   const { colors } = config;
+
+  const filteredSubjects = activeCategory === 'All' 
+    ? config.subjects 
+    : config.subjects.filter(s => s.category === activeCategory);
 
   return (
     <div 
@@ -70,16 +78,20 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
           </div>
 
           <div className="flex justify-center gap-2 flex-wrap mb-10">
-            {['All', 'Programming', 'Web Dev', 'CS Core'].map((pill, i) => (
-              <button key={pill} className="px-5 py-2 rounded-full text-[11px] font-bold transition-all uppercase tracking-wider" 
-                style={i === 0 ? { backgroundColor: colors.primary, color: colors.background } : { backgroundColor: colors.cardBg, color: colors.muted, border: `1px solid ${colors.border}` }}>
+            {categories.map((pill) => (
+              <button 
+                key={pill} 
+                onClick={() => setActiveCategory(pill)}
+                className="px-5 py-2 rounded-full text-[11px] font-bold transition-all uppercase tracking-wider cursor-pointer hover:brightness-110" 
+                style={activeCategory === pill ? { backgroundColor: colors.primary, color: colors.background } : { backgroundColor: colors.cardBg, color: colors.muted, border: `1px solid ${colors.border}` }}
+              >
                 {pill}
               </button>
             ))}
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {config.subjects.map(s => (
+            {filteredSubjects.map(s => (
               <div key={s.id} className="p-6 rounded-xl border flex flex-col h-full transition-all hover:-translate-y-1 hover:shadow-2xl" style={{ backgroundColor: colors.cardBg, borderColor: colors.border }}>
                 <div className="flex gap-4 mb-6">
                   <div className="p-3 rounded-xl h-fit flex-shrink-0 bg-gradient-to-br" style={{ backgroundImage: `linear-gradient(to bottom right, ${colors.primary}20, transparent)`, color: colors.primary, border: `1px solid ${colors.primary}30` }}>

@@ -60,6 +60,10 @@ export default function AdminSidebar({ config, onChange }: Props) {
             <label className="block text-[11px] font-medium text-gray-500 mb-2">Header Button</label>
             <input type="text" value={config.header.ctaText} onChange={(e) => updateConfig('header', 'ctaText', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
           </div>
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Categories (comma separated)</label>
+            <input type="text" value={(config.categories || ['All', 'Programming', 'Web Dev', 'CS Core']).join(', ')} onChange={(e) => onChange({...config, categories: e.target.value.split(',').map(s => s.trim()).filter(Boolean)})} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
+          </div>
         </div>
       </div>
 
@@ -102,6 +106,48 @@ export default function AdminSidebar({ config, onChange }: Props) {
             <label className="block text-[11px] font-medium text-gray-500 mb-2">Button Text</label>
             <input type="text" value={config.resume.ctaText} onChange={(e) => updateConfig('resume', 'ctaText', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
           </div>
+        </div>
+      </div>
+
+      {/* Subjects Configuration */}
+      <div className="space-y-4">
+        <h3 className="font-semibold flex items-center gap-2 text-gray-300 border-b border-[#222] pb-2 text-sm">
+          <Columns size={16} /> Edit Subjects
+        </h3>
+        <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2">
+          {config.subjects.map((subject, index) => (
+            <div key={subject.id} className="p-3 bg-[#1A1A1A] border border-[#333] rounded space-y-3">
+              <div>
+                <label className="block text-[11px] font-medium text-gray-500 mb-1">Title</label>
+                <input type="text" value={subject.title} onChange={(e) => {
+                  const newSubjects = [...config.subjects];
+                  newSubjects[index].title = e.target.value;
+                  onChange({ ...config, subjects: newSubjects });
+                }} className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
+              </div>
+              <div>
+                <label className="block text-[11px] font-medium text-gray-500 mb-1">Category</label>
+                <select value={subject.category} onChange={(e) => {
+                  const newSubjects = [...config.subjects];
+                  newSubjects[index].category = e.target.value;
+                  onChange({ ...config, subjects: newSubjects });
+                }} className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none">
+                  <option value="">Select Category...</option>
+                  {(config.categories || ['All', 'Programming', 'Web Dev', 'CS Core']).filter(c => c !== 'All').map(c => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-[11px] font-medium text-gray-500 mb-1">Description</label>
+                <textarea value={subject.description} onChange={(e) => {
+                  const newSubjects = [...config.subjects];
+                  newSubjects[index].description = e.target.value;
+                  onChange({ ...config, subjects: newSubjects });
+                }} className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none h-16 resize-none" />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
