@@ -79,7 +79,21 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
               <Icons.Sparkles size={12} /> {config.hero.tagline}
             </div>
             <h2 className="text-3xl md:text-5xl font-black mb-5 tracking-tight">{config.hero.title}</h2>
-            <p className="text-sm md:text-base leading-relaxed" style={{ color: colors.muted }}>{config.hero.subtitle}</p>
+            <p className="text-sm md:text-base leading-relaxed" style={{ color: colors.muted }}>
+              {(() => {
+                const text = config.hero.subtitle || '';
+                const parts = text.split(/(Free|Paid)/g);
+                return parts.map((part, i) => {
+                  if (part === 'Free') {
+                    return <span key={i} className="font-bold text-emerald-400">Free</span>;
+                  }
+                  if (part === 'Paid') {
+                    return <span key={i} className="font-bold text-amber-500">Paid</span>;
+                  }
+                  return part;
+                });
+              })()}
+            </p>
           </div>
 
           <div className="flex gap-2 flex-wrap mb-10">
