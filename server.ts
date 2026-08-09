@@ -1,22 +1,22 @@
 import express from 'express';
 import path from 'path';
-import fs from 'fs/promises';
 import { createServer as createViteServer } from 'vite';
 import { defaultConfig } from './src/defaultConfig';
+import { initializeApp, applicationDefault } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
+
+const appFirebase = initializeApp({
+  credential: applicationDefault(),
+  projectId: process.env.GOOGLE_CLOUD_PROJECT || 'gen-lang-client-0214630999'
+});
+const db = getFirestore(appFirebase);
+const configRef = db.collection('app').doc('config');
 
 const PORT = 3000;
-const CONFIG_FILE = path.join(process.cwd(), 'site-config.json');
 
 async function startServer() {
   const app = express();
   app.use(express.json());
-
-  // Ensure default config exists
-  try {
-    await fs.access(CONFIG_FILE);
-  } catch {
-    await fs.writeFile(CONFIG_FILE, JSON.stringify(defaultConfig, null, 2));
-  }
 
   const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
   const AUTH_TOKEN = 'secret-admin-token-xyz';
@@ -33,8 +33,14 @@ async function startServer() {
 
   app.get('/api/config', async (req, res) => {
     try {
-      const data = await fs.readFile(CONFIG_FILE, 'utf-8');
-      res.json(JSON.parse(data));
+      const doc = await configRef.get();
+      if (!doc.exists) {
+        // Seed default config if not exists
+        await configRef.set(defaultConfig);
+        res.json(defaultConfig);
+      } else {
+        res.json(doc.data());
+      }
     } catch (error) {
       console.error("Error reading config:", error);
       res.status(500).json({ error: 'Failed to read config' });
@@ -50,7 +56,7 @@ async function startServer() {
 
     try {
       const newConfig = req.body;
-      await fs.writeFile(CONFIG_FILE, JSON.stringify(newConfig, null, 2));
+      await configRef.set(newConfig);
       res.json({ success: true });
     } catch (error) {
       console.error("Error writing config:", error);
