@@ -229,7 +229,6 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
                 src={previewingUrl} 
                 className="w-full h-full border-none"
                 title={`${previewingTitle} Preview`}
-                sandbox="allow-scripts allow-same-origin"
               />
             </div>
           </div>
