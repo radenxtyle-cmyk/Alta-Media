@@ -250,6 +250,14 @@ export default function AdminSidebar({ config, onChange }: Props) {
                   onChange({ ...config, subjects: newSubjects });
                 }} className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" placeholder="https://example.com/file.pdf" />
               </div>
+              <div>
+                <label className="block text-[11px] font-medium text-gray-500 mb-1">Free Download URL</label>
+                <input type="text" value={subject.freeUrl || ''} onChange={(e) => {
+                  const newSubjects = [...config.subjects];
+                  newSubjects[index].freeUrl = e.target.value;
+                  onChange({ ...config, subjects: newSubjects });
+                }} className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" placeholder="https://example.com/download.pdf" />
+              </div>
             </div>
           ))}
         </div>

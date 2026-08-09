@@ -5,6 +5,7 @@ export interface Subject {
   icon: string;
   category: string;
   previewUrl?: string;
+  freeUrl?: string;
 }
 
 export interface TopFeature {

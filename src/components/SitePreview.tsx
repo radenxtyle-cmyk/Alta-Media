@@ -131,7 +131,16 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
                   >
                     <Icons.Eye size={12}/> Preview
                   </button>
-                  <button className="flex items-center justify-center gap-1.5 text-[10px] font-bold py-2.5 rounded-lg hover:brightness-125 transition-all text-green-400 bg-green-400/10">
+                  <button 
+                    onClick={() => {
+                      if (s.freeUrl) {
+                        window.open(s.freeUrl, '_blank');
+                      } else {
+                        alert('Free download URL not available for this subject.');
+                      }
+                    }}
+                    className="flex items-center justify-center gap-1.5 text-[10px] font-bold py-2.5 rounded-lg hover:brightness-125 transition-all text-green-400 bg-green-400/10"
+                  >
                     <Icons.Download size={12}/> Free
                   </button>
                   <button className="flex items-center justify-center gap-1.5 text-[10px] font-bold py-2.5 rounded-lg hover:brightness-125 transition-all" style={{ color: colors.primary, backgroundColor: `${colors.primary}15` }}>
