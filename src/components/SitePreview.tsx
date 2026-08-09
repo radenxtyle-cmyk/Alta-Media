@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 export default function SitePreview({ config }: { config: SiteConfig }) {
   const categories = config.categories || ['All', 'Programming', 'Web Dev', 'CS Core'];
   const [activeCategory, setActiveCategory] = useState(categories[0] || 'All');
+  const [previewingUrl, setPreviewingUrl] = useState<string | null>(null);
+  const [previewingTitle, setPreviewingTitle] = useState<string | null>(null);
 
   const getIcon = (name: string, size = 20) => {
     const Icon = (Icons as any)[name] || Icons.Code;
@@ -116,7 +118,17 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
                 </div>
 
                 <div className="grid grid-cols-3 gap-2">
-                  <button className="flex items-center justify-center gap-1.5 text-[10px] font-bold py-2.5 rounded-lg hover:brightness-125 transition-all bg-white/5" style={{ color: colors.muted }}>
+                  <button 
+                    onClick={() => {
+                      if (s.previewUrl) {
+                        setPreviewingUrl(s.previewUrl);
+                        setPreviewingTitle(s.title);
+                      } else {
+                        alert('Preview URL not available for this subject.');
+                      }
+                    }}
+                    className="flex items-center justify-center gap-1.5 text-[10px] font-bold py-2.5 rounded-lg hover:brightness-125 transition-all bg-white/5" style={{ color: colors.muted }}
+                  >
                     <Icons.Eye size={12}/> Preview
                   </button>
                   <button className="flex items-center justify-center gap-1.5 text-[10px] font-bold py-2.5 rounded-lg hover:brightness-125 transition-all text-green-400 bg-green-400/10">
@@ -192,6 +204,37 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
         </div>
 
       </div>
+
+      {/* Preview Modal */}
+      {previewingUrl && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+          <div className="w-full max-w-5xl h-[85vh] bg-[#07050f] rounded-2xl border border-[#262445] flex flex-col shadow-2xl overflow-hidden relative">
+            <div className="flex items-center justify-between p-4 border-b border-[#262445] bg-[#131127]">
+              <div className="flex items-center gap-2 text-white font-bold">
+                <Icons.Eye size={16} style={{ color: colors.primary }} />
+                <span>{previewingTitle} — Preview</span>
+              </div>
+              <button 
+                onClick={() => {
+                  setPreviewingUrl(null);
+                  setPreviewingTitle(null);
+                }}
+                className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 text-white transition-colors"
+              >
+                <Icons.X size={16} />
+              </button>
+            </div>
+            <div className="flex-1 w-full bg-white relative">
+              <iframe 
+                src={previewingUrl} 
+                className="w-full h-full border-none"
+                title={`${previewingTitle} Preview`}
+                sandbox="allow-scripts allow-same-origin"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

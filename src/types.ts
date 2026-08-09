@@ -4,6 +4,7 @@ export interface Subject {
   description: string;
   icon: string;
   category: string;
+  previewUrl?: string;
 }
 
 export interface TopFeature {
