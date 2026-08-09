@@ -18,7 +18,19 @@ async function startServer() {
     await fs.writeFile(CONFIG_FILE, JSON.stringify(defaultConfig, null, 2));
   }
 
+  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
+  const AUTH_TOKEN = 'secret-admin-token-xyz';
+
   // --- API Routes (Backend) ---
+  app.post('/api/login', (req, res) => {
+    const { password } = req.body;
+    if (password === ADMIN_PASSWORD) {
+      res.json({ token: AUTH_TOKEN });
+    } else {
+      res.status(401).json({ error: 'Invalid password' });
+    }
+  });
+
   app.get('/api/config', async (req, res) => {
     try {
       const data = await fs.readFile(CONFIG_FILE, 'utf-8');
@@ -30,6 +42,12 @@ async function startServer() {
   });
 
   app.post('/api/config', async (req, res) => {
+    const authHeader = req.headers.authorization;
+    if (authHeader !== `Bearer ${AUTH_TOKEN}`) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+
     try {
       const newConfig = req.body;
       await fs.writeFile(CONFIG_FILE, JSON.stringify(newConfig, null, 2));

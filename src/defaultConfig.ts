@@ -3,7 +3,7 @@ import { SiteConfig } from './types';
 export const defaultConfig: SiteConfig = {
   header: {
     logoText: 'CODE WITH AI',
-    ctaText: 'Get Premium Notes',
+    ctaText: 'Login',
   },
   hero: {
     tagline: 'STUDY MATERIAL',

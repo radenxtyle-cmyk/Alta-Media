@@ -1,6 +1,7 @@
 import { SiteConfig } from '../types';
 import * as Icons from 'lucide-react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function SitePreview({ config }: { config: SiteConfig }) {
   const categories = config.categories || ['All', 'Programming', 'Web Dev', 'CS Core'];
@@ -33,13 +34,15 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
           <span className="flex items-center gap-2 hover:text-white cursor-pointer transition-colors"><Icons.Wrench size={14}/> Tools</span>
           <span className="flex items-center gap-2 hover:text-white cursor-pointer transition-colors"><Icons.Users size={14}/> Community</span>
         </div>
-        <button 
-          className="px-5 py-2.5 rounded-full text-xs font-bold text-white transition-all hover:brightness-110 flex items-center gap-2"
-          style={{ backgroundColor: colors.secondary, boxShadow: `0 0 20px ${colors.secondary}40` }}
-        >
-          <Icons.Zap size={14} />
-          {config.header.ctaText}
-        </button>
+        <Link to="/admin">
+          <button 
+            className="px-5 py-2.5 rounded-full text-xs font-bold text-white transition-all hover:brightness-110 flex items-center gap-2"
+            style={{ backgroundColor: colors.secondary, boxShadow: `0 0 20px ${colors.secondary}40` }}
+          >
+            <Icons.LogIn size={14} />
+            {config.header.ctaText || "Login"}
+          </button>
+        </Link>
       </header>
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 space-y-24">

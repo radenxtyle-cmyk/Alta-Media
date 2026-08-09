@@ -10,8 +10,15 @@ export default function AdminDashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isPublishing, setIsPublishing] = useState(false);
   const [useLocalFallback, setUseLocalFallback] = useState(false);
+  
+  const [token, setToken] = useState<string | null>(localStorage.getItem('adminToken'));
+  const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   useEffect(() => {
+    if (!token) return;
+
     fetch('/api/config')
       .then(res => {
         if (!res.ok) throw new Error("Network response was not ok");
@@ -32,7 +39,28 @@ export default function AdminDashboard() {
           setConfig(defaultConfig);
         }
       });
-  }, []);
+  }, [token]);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoggingIn(true);
+    setLoginError('');
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      });
+      if (!res.ok) throw new Error('Invalid password');
+      const data = await res.json();
+      setToken(data.token);
+      localStorage.setItem('adminToken', data.token);
+    } catch (err) {
+      setLoginError('Invalid password. Hint: default is admin123');
+    } finally {
+      setIsLoggingIn(false);
+    }
+  };
 
   const handlePublish = async () => {
     if (!config) return;
@@ -51,9 +79,18 @@ export default function AdminDashboard() {
     try {
       const res = await fetch('/api/config', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
+        },
         body: JSON.stringify(config),
       });
+      if (res.status === 401) {
+        setToken(null);
+        localStorage.removeItem('adminToken');
+        alert('Session expired. Please log in again.');
+        return;
+      }
       if (!res.ok) throw new Error("Failed to save");
       alert('Site published successfully!');
     } catch (err) {
@@ -66,6 +103,49 @@ export default function AdminDashboard() {
       setIsPublishing(false);
     }
   };
+
+  const handleLogout = () => {
+    setToken(null);
+    localStorage.removeItem('adminToken');
+    setConfig(null);
+  };
+
+  if (!token) {
+    return (
+      <div className="h-screen w-full flex items-center justify-center bg-[#07050f] text-white font-sans">
+        <form onSubmit={handleLogin} className="bg-[#131127] p-8 rounded-xl border border-[#262445] w-full max-w-sm flex flex-col gap-4 shadow-2xl">
+          <div className="text-center mb-4">
+            <div className="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center font-bold text-white text-xl mx-auto mb-4 shadow-lg shadow-indigo-500/20">
+              W
+            </div>
+            <h1 className="text-xl font-bold tracking-tight">Admin Dashboard</h1>
+            <p className="text-sm text-[#8a8dab] mt-1">Please enter your password</p>
+          </div>
+          
+          <div>
+            <input 
+              type="password" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              className="w-full px-4 py-3 bg-[#07050f] border border-[#262445] rounded-lg text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+              required
+            />
+          </div>
+          
+          {loginError && <p className="text-red-400 text-xs text-center">{loginError}</p>}
+          
+          <button 
+            type="submit"
+            disabled={isLoggingIn}
+            className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 rounded-lg transition-colors disabled:opacity-50 mt-2"
+          >
+            {isLoggingIn ? 'Logging in...' : 'Login'}
+          </button>
+        </form>
+      </div>
+    );
+  }
 
   if (!config) {
     return <div className="h-screen w-full flex items-center justify-center bg-[#0A0A0A] text-white">Loading Editor...</div>;
@@ -100,6 +180,12 @@ export default function AdminDashboard() {
             className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-1.5 rounded-md text-sm font-medium transition-colors disabled:opacity-50"
           >
             {isPublishing ? 'Publishing...' : 'Publish Site'}
+          </button>
+          <button 
+            onClick={handleLogout}
+            className="bg-transparent hover:bg-red-500/10 text-red-500 px-3 py-1.5 rounded-md text-sm font-medium transition-colors border border-red-500/20"
+          >
+            Logout
           </button>
         </div>
       </header>
