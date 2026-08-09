@@ -29,6 +29,7 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
       <header className="flex items-center justify-between px-6 py-4 border-b" style={{ borderColor: colors.border }}>
         <div className="flex flex-col">
           <div className="font-display text-lg md:text-xl font-black tracking-widest uppercase flex items-center gap-2" style={{ color: colors.primary }}>
+            <span className="text-cyan-400 font-mono font-black tracking-tighter text-lg md:text-xl">&lt;/&gt;</span>
             {config.header.logoText}
           </div>
           <div className="text-[9px] font-bold tracking-[0.25em] uppercase text-gray-400">
@@ -346,7 +347,8 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
 
           {/* Bottom Footer Section */}
           <div className="w-full border-t pt-10 pb-6 text-center" style={{ borderColor: colors.border }}>
-            <div className="font-display text-xl font-black tracking-widest uppercase mb-2" style={{ color: colors.primary }}>
+            <div className="font-display text-xl font-black tracking-widest uppercase mb-2 flex items-center justify-center gap-2" style={{ color: colors.primary }}>
+              <span className="text-cyan-400 font-mono font-black tracking-tighter text-xl">&lt;/&gt;</span>
               {config.header.logoText}
             </div>
             <div className="text-[10px] font-bold tracking-[0.25em] uppercase mb-8" style={{ color: colors.muted }}>
