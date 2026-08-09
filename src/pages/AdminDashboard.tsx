@@ -3,32 +3,65 @@ import { SiteConfig } from '../types';
 import AdminSidebar from '../components/AdminSidebar';
 import SitePreview from '../components/SitePreview';
 import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import { defaultConfig } from '../defaultConfig';
 
 export default function AdminDashboard() {
   const [config, setConfig] = useState<SiteConfig | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isPublishing, setIsPublishing] = useState(false);
+  const [useLocalFallback, setUseLocalFallback] = useState(false);
 
   useEffect(() => {
     fetch('/api/config')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error("Network response was not ok");
+        return res.json();
+      })
       .then(data => setConfig(data))
-      .catch(err => console.error("Failed to load config", err));
+      .catch(err => {
+        console.warn("Backend not available, falling back to local config.", err);
+        setUseLocalFallback(true);
+        const localConfig = localStorage.getItem('siteConfig');
+        if (localConfig) {
+          try {
+            setConfig(JSON.parse(localConfig));
+          } catch (e) {
+            setConfig(defaultConfig);
+          }
+        } else {
+          setConfig(defaultConfig);
+        }
+      });
   }, []);
 
   const handlePublish = async () => {
     if (!config) return;
     setIsPublishing(true);
+    
+    if (useLocalFallback) {
+      // Simulate network request then save to localStorage
+      setTimeout(() => {
+        localStorage.setItem('siteConfig', JSON.stringify(config));
+        alert('Site published successfully (saved to browser local storage)!');
+        setIsPublishing(false);
+      }, 500);
+      return;
+    }
+
     try {
-      await fetch('/api/config', {
+      const res = await fetch('/api/config', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(config),
       });
+      if (!res.ok) throw new Error("Failed to save");
       alert('Site published successfully!');
     } catch (err) {
       console.error("Failed to publish", err);
-      alert('Failed to publish site.');
+      // Fallback
+      localStorage.setItem('siteConfig', JSON.stringify(config));
+      setUseLocalFallback(true);
+      alert('Failed to publish to server, but changes were saved locally to your browser!');
     } finally {
       setIsPublishing(false);
     }

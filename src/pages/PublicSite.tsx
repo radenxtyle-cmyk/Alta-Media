@@ -2,36 +2,38 @@ import { useState, useEffect } from 'react';
 import { SiteConfig } from '../types';
 import SitePreview from '../components/SitePreview';
 import { Link } from 'react-router-dom';
+import { defaultConfig } from '../defaultConfig';
 
 export default function PublicSite() {
   const [config, setConfig] = useState<SiteConfig | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('/api/config')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error("Network response was not ok");
+        return res.json();
+      })
       .then(data => setConfig(data))
       .catch(err => {
-        console.error("Failed to load config", err);
-        setError("Could not load the website configuration.");
+        console.warn("Backend not available, falling back to local config.", err);
+        // Fallback to local storage if available, otherwise default config
+        const localConfig = localStorage.getItem('siteConfig');
+        if (localConfig) {
+          try {
+            setConfig(JSON.parse(localConfig));
+          } catch (e) {
+            setConfig(defaultConfig);
+          }
+        } else {
+          setConfig(defaultConfig);
+        }
       });
   }, []);
-
-  if (error) {
-    return (
-      <div className="h-screen w-full flex flex-col items-center justify-center bg-[#07050f] text-white">
-        <p className="text-red-400 mb-4">{error}</p>
-        <Link to="/admin" className="text-indigo-400 underline">Go to Admin Dashboard</Link>
-      </div>
-    );
-  }
 
   if (!config) {
     return <div className="h-screen w-full flex items-center justify-center bg-[#07050f] text-white">Loading...</div>;
   }
 
-  // Pass the config to the preview component.
-  // In a real application, you might extract the JSX from SitePreview and render it cleanly here.
   return (
     <div className="h-screen w-full">
       <SitePreview config={config} />
