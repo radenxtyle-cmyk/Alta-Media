@@ -46,10 +46,10 @@ export default function AdminSidebar({ config, onChange }: Props) {
         </div>
       </div>
 
-      {/* Global Content */}
+      {/* Header Content */}
       <div className="space-y-4">
         <h3 className="font-semibold flex items-center gap-2 text-gray-300 border-b border-[#222] pb-2 text-sm">
-          <Layout size={16} /> Global Content
+          <Layout size={16} /> Header Section
         </h3>
         <div className="space-y-3">
           <div>
@@ -70,7 +70,7 @@ export default function AdminSidebar({ config, onChange }: Props) {
       {/* Hero Content */}
       <div className="space-y-4">
         <h3 className="font-semibold flex items-center gap-2 text-gray-300 border-b border-[#222] pb-2 text-sm">
-          <Type size={16} /> Subjects Section
+          <Type size={16} /> Hero Section
         </h3>
         <div className="space-y-3">
           <div>
@@ -88,32 +88,11 @@ export default function AdminSidebar({ config, onChange }: Props) {
         </div>
       </div>
 
-      {/* Resume Content */}
-      <div className="space-y-4">
-        <h3 className="font-semibold flex items-center gap-2 text-gray-300 border-b border-[#222] pb-2 text-sm">
-          <Columns size={16} /> Resume Section
-        </h3>
-        <div className="space-y-3">
-          <div>
-            <label className="block text-[11px] font-medium text-gray-500 mb-2">Section Title</label>
-            <input type="text" value={config.resume.title} onChange={(e) => updateConfig('resume', 'title', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
-          </div>
-          <div>
-            <label className="block text-[11px] font-medium text-gray-500 mb-2">Card Title</label>
-            <input type="text" value={config.resume.cardTitle} onChange={(e) => updateConfig('resume', 'cardTitle', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
-          </div>
-          <div>
-            <label className="block text-[11px] font-medium text-gray-500 mb-2">Button Text</label>
-            <input type="text" value={config.resume.ctaText} onChange={(e) => updateConfig('resume', 'ctaText', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
-          </div>
-        </div>
-      </div>
-
       {/* Top Features Configuration */}
       <div className="space-y-4">
         <div className="flex items-center justify-between border-b border-[#222] pb-2">
           <h3 className="font-semibold flex items-center gap-2 text-gray-300 text-sm">
-            <Columns size={16} /> Edit Top Features
+            <Columns size={16} /> Top Features Section
           </h3>
           <button 
             onClick={() => {
@@ -130,7 +109,7 @@ export default function AdminSidebar({ config, onChange }: Props) {
             + Add Feature
           </button>
         </div>
-        <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2">
+        <div className="space-y-4 pr-2">
           {config.topFeatures.map((feature, index) => (
             <div key={feature.id} className="p-3 bg-[#1A1A1A] border border-[#333] rounded space-y-3 relative">
               <button 
@@ -171,11 +150,64 @@ export default function AdminSidebar({ config, onChange }: Props) {
         </div>
       </div>
 
+      {/* Stats Configuration */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between border-b border-[#222] pb-2">
+          <h3 className="font-semibold flex items-center gap-2 text-gray-300 text-sm">
+            <Columns size={16} /> Stats Section
+          </h3>
+          <button 
+            onClick={() => {
+              const newStats = [...config.stats, {
+                id: Date.now().toString(),
+                value: '100+',
+                label: 'New Stat'
+              }];
+              onChange({ ...config, stats: newStats });
+            }}
+            className="text-[10px] bg-[#222] hover:bg-[#333] px-2 py-1 rounded text-white"
+          >
+            + Add Stat
+          </button>
+        </div>
+        <div className="space-y-4 pr-2">
+          {config.stats.map((stat, index) => (
+            <div key={stat.id} className="p-3 bg-[#1A1A1A] border border-[#333] rounded space-y-3 relative">
+              <button 
+                onClick={() => {
+                  const newStats = config.stats.filter((_, i) => i !== index);
+                  onChange({ ...config, stats: newStats });
+                }}
+                className="absolute top-2 right-2 text-red-500 hover:text-red-400 text-[10px]"
+              >
+                Remove
+              </button>
+              <div>
+                <label className="block text-[11px] font-medium text-gray-500 mb-1">Value</label>
+                <input type="text" value={stat.value} onChange={(e) => {
+                  const newStats = [...config.stats];
+                  newStats[index].value = e.target.value;
+                  onChange({ ...config, stats: newStats });
+                }} className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none pr-12" />
+              </div>
+              <div>
+                <label className="block text-[11px] font-medium text-gray-500 mb-1">Label</label>
+                <input type="text" value={stat.label} onChange={(e) => {
+                  const newStats = [...config.stats];
+                  newStats[index].label = e.target.value;
+                  onChange({ ...config, stats: newStats });
+                }} className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Subjects Configuration */}
       <div className="space-y-4">
         <div className="flex items-center justify-between border-b border-[#222] pb-2">
           <h3 className="font-semibold flex items-center gap-2 text-gray-300 text-sm">
-            <Columns size={16} /> Edit Subjects
+            <Columns size={16} /> Subjects Section
           </h3>
           <button 
             onClick={() => {
@@ -193,7 +225,7 @@ export default function AdminSidebar({ config, onChange }: Props) {
             + Add Subject
           </button>
         </div>
-        <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2">
+        <div className="space-y-4 pr-2">
           {config.subjects.map((subject, index) => (
             <div key={subject.id} className="p-3 bg-[#1A1A1A] border border-[#333] rounded space-y-3 relative">
               <button 
@@ -260,6 +292,56 @@ export default function AdminSidebar({ config, onChange }: Props) {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Resume Content */}
+      <div className="space-y-4">
+        <h3 className="font-semibold flex items-center gap-2 text-gray-300 border-b border-[#222] pb-2 text-sm">
+          <Type size={16} /> Resume Section
+        </h3>
+        <div className="space-y-3">
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Tagline</label>
+            <input type="text" value={config.resume.tagline} onChange={(e) => updateConfig('resume', 'tagline', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
+          </div>
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Section Title</label>
+            <input type="text" value={config.resume.title} onChange={(e) => updateConfig('resume', 'title', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
+          </div>
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Subtitle</label>
+            <textarea value={config.resume.subtitle} onChange={(e) => updateConfig('resume', 'subtitle', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none h-16 resize-none" />
+          </div>
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Card Title</label>
+            <input type="text" value={config.resume.cardTitle} onChange={(e) => updateConfig('resume', 'cardTitle', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
+          </div>
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Card Description</label>
+            <textarea value={config.resume.cardDesc} onChange={(e) => updateConfig('resume', 'cardDesc', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none h-16 resize-none" />
+          </div>
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Button Text</label>
+            <input type="text" value={config.resume.ctaText} onChange={(e) => updateConfig('resume', 'ctaText', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
+          </div>
+        </div>
+      </div>
+
+      {/* Footer Content */}
+      <div className="space-y-4">
+        <h3 className="font-semibold flex items-center gap-2 text-gray-300 border-b border-[#222] pb-2 text-sm">
+          <Layout size={16} /> Footer Section
+        </h3>
+        <div className="space-y-3">
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">CTA Text</label>
+            <input type="text" value={config.footer.cta} onChange={(e) => updateConfig('footer', 'cta', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
+          </div>
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Community Text</label>
+            <input type="text" value={config.footer.community} onChange={(e) => updateConfig('footer', 'community', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
+          </div>
         </div>
       </div>
 
