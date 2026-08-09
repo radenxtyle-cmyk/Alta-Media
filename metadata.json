@@ -1,0 +1,6 @@
+{
+  "name": "Visual Site Builder",
+  "description": "A website builder with a real-time admin dashboard for visual editing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
