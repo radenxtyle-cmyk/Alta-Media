@@ -226,7 +226,7 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
             </div>
             <div className="flex-1 w-full bg-white relative">
               <iframe 
-                src={previewingUrl} 
+                src={previewingUrl.includes('drive.google.com') ? previewingUrl.replace('/view', '/preview').split('?')[0] : previewingUrl} 
                 className="w-full h-full border-none"
                 title={`${previewingTitle} Preview`}
               />
