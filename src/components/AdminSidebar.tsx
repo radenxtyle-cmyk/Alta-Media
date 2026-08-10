@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { SiteConfig } from '../types';
-import { Type, Palette, Layout, Columns, Grid, Tag, FolderPlus, Plus, Trash2 } from 'lucide-react';
+import { Type, Palette, Layout, Columns, Grid, Tag, FolderPlus, Plus, Trash2, Eye, EyeOff } from 'lucide-react';
 
 interface Props {
   config: SiteConfig;
@@ -192,21 +192,36 @@ export default function AdminSidebar({ config, onChange }: Props) {
           <h3 className="font-semibold flex items-center gap-2 text-gray-300 text-sm">
             <Grid size={16} /> Top Features (Cards)
           </h3>
-          <button 
-            onClick={() => {
-              const currentFeatures = config.topFeatures || [];
-              const newFeatures = [...currentFeatures, {
-                id: Date.now().toString(),
-                title: 'NEW FEATURE',
-                subtitle: 'Feature description text here',
-                icon: 'Sparkles'
-              }];
-              onChange({ ...config, topFeatures: newFeatures });
-            }}
-            className="text-[10px] bg-[#222] hover:bg-[#333] px-2 py-1 rounded text-white"
-          >
-            + Add Card
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => onChange({ ...config, showTopFeatures: config.showTopFeatures === false ? true : false })}
+              className={`text-[11px] px-2.5 py-1 rounded font-semibold flex items-center gap-1 transition-colors cursor-pointer ${
+                config.showTopFeatures !== false 
+                  ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 hover:bg-emerald-500/30' 
+                  : 'bg-red-500/20 text-red-400 border border-red-500/40 hover:bg-red-500/30'
+              }`}
+              title={config.showTopFeatures !== false ? 'Sembunyikan Top Features Cards' : 'Tampilkan Top Features Cards'}
+            >
+              {config.showTopFeatures !== false ? <Eye size={12} /> : <EyeOff size={12} />}
+              {config.showTopFeatures !== false ? 'Show' : 'Hide'}
+            </button>
+            <button 
+              onClick={() => {
+                const currentFeatures = config.topFeatures || [];
+                const newFeatures = [...currentFeatures, {
+                  id: Date.now().toString(),
+                  title: 'NEW FEATURE',
+                  subtitle: 'Feature description text here',
+                  icon: 'Sparkles'
+                }];
+                onChange({ ...config, topFeatures: newFeatures });
+              }}
+              className="text-[10px] bg-[#222] hover:bg-[#333] px-2 py-1 rounded text-white"
+            >
+              + Add Card
+            </button>
+          </div>
         </div>
         <div className="space-y-4 pr-2">
           {(config.topFeatures || []).map((feature, index) => (
@@ -273,19 +288,34 @@ export default function AdminSidebar({ config, onChange }: Props) {
           <h3 className="font-semibold flex items-center gap-2 text-gray-300 text-sm">
             <Columns size={16} /> Stats Section
           </h3>
-          <button 
-            onClick={() => {
-              const newStats = [...config.stats, {
-                id: Date.now().toString(),
-                value: '100+',
-                label: 'New Stat'
-              }];
-              onChange({ ...config, stats: newStats });
-            }}
-            className="text-[10px] bg-[#222] hover:bg-[#333] px-2 py-1 rounded text-white"
-          >
-            + Add Stat
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => onChange({ ...config, showStats: config.showStats === false ? true : false })}
+              className={`text-[11px] px-2.5 py-1 rounded font-semibold flex items-center gap-1 transition-colors cursor-pointer ${
+                config.showStats !== false 
+                  ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 hover:bg-emerald-500/30' 
+                  : 'bg-red-500/20 text-red-400 border border-red-500/40 hover:bg-red-500/30'
+              }`}
+              title={config.showStats !== false ? 'Sembunyikan Stats Section' : 'Tampilkan Stats Section'}
+            >
+              {config.showStats !== false ? <Eye size={12} /> : <EyeOff size={12} />}
+              {config.showStats !== false ? 'Show' : 'Hide'}
+            </button>
+            <button 
+              onClick={() => {
+                const newStats = [...config.stats, {
+                  id: Date.now().toString(),
+                  value: '100+',
+                  label: 'New Stat'
+                }];
+                onChange({ ...config, stats: newStats });
+              }}
+              className="text-[10px] bg-[#222] hover:bg-[#333] px-2 py-1 rounded text-white"
+            >
+              + Add Stat
+            </button>
+          </div>
         </div>
         <div className="space-y-4 pr-2">
           {config.stats.map((stat, index) => (

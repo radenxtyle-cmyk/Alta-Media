@@ -116,27 +116,31 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
         </div>
 
         {/* Top Features */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          {(config.topFeatures || []).map(f => (
-            <div key={f.id} className="p-4 rounded-xl border border-transparent transition-all hover:shadow-[0_0_20px_rgba(0,229,255,0.15)] group" style={{ backgroundColor: colors.cardBg, borderColor: colors.border }}>
-              <div className="mb-4 w-10 h-10 rounded-lg flex items-center justify-center bg-white/5 group-hover:scale-110 transition-transform shadow-inner" style={{ color: colors.primary }}>
-                {getIcon(f.icon, 20)}
+        {config.showTopFeatures !== false && (
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {(config.topFeatures || []).map(f => (
+              <div key={f.id} className="p-4 rounded-xl border border-transparent transition-all hover:shadow-[0_0_20px_rgba(0,229,255,0.15)] group" style={{ backgroundColor: colors.cardBg, borderColor: colors.border }}>
+                <div className="mb-4 w-10 h-10 rounded-lg flex items-center justify-center bg-white/5 group-hover:scale-110 transition-transform shadow-inner" style={{ color: colors.primary }}>
+                  {getIcon(f.icon, 20)}
+                </div>
+                <h4 className="font-display text-[11px] font-black tracking-wider uppercase mb-1.5">{f.title}</h4>
+                <p className="text-[10px] leading-relaxed" style={{ color: colors.muted }}>{f.subtitle}</p>
               </div>
-              <h4 className="font-display text-[11px] font-black tracking-wider uppercase mb-1.5">{f.title}</h4>
-              <p className="text-[10px] leading-relaxed" style={{ color: colors.muted }}>{f.subtitle}</p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Stats */}
-        <div className="flex flex-wrap justify-center gap-12 md:gap-24 py-10 border-y" style={{ borderColor: colors.border }}>
-          {config.stats.map(s => (
-            <div key={s.id} className="text-center">
-              <div className="text-4xl font-black mb-2 tracking-tighter" style={{ color: colors.primary }}>{s.value}</div>
-              <div className="text-[10px] font-bold tracking-widest uppercase" style={{ color: colors.muted }}>{s.label}</div>
-            </div>
-          ))}
-        </div>
+        {config.showStats !== false && (
+          <div className="flex flex-wrap justify-center gap-12 md:gap-24 py-10 border-y" style={{ borderColor: colors.border }}>
+            {config.stats.map(s => (
+              <div key={s.id} className="text-center">
+                <div className="text-4xl font-black mb-2 tracking-tighter" style={{ color: colors.primary }}>{s.value}</div>
+                <div className="text-[10px] font-bold tracking-widest uppercase" style={{ color: colors.muted }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Study Material */}
         <div id="subjects">

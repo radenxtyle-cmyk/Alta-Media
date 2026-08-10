@@ -37,6 +37,8 @@ export const defaultConfig: SiteConfig = {
     muted: '#8a8dab',
   },
   categories: ['All', 'Programming', 'Web Dev', 'CS Core'],
+  showTopFeatures: true,
+  showStats: true,
   topFeatures: [
     { id: '1', title: 'VIDEO TUTORIALS', subtitle: 'Watch concept videos on YouTube - beginner to advanced', icon: 'Youtube' },
     { id: '2', title: 'FREE PDF NOTES', subtitle: 'Download clean notes for every subject - no signup', icon: 'FileText' },

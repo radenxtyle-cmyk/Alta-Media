@@ -68,6 +68,8 @@ export interface SiteConfig {
     muted: string;
   };
   categories: string[];
+  showTopFeatures?: boolean;
+  showStats?: boolean;
   topFeatures: TopFeature[];
   stats: Stat[];
   subjects: Subject[];
