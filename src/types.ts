@@ -68,6 +68,7 @@ export interface SiteConfig {
     muted: string;
   };
   categories: string[];
+  googleSearchConsoleCode?: string;
   showTopFeatures?: boolean;
   showStats?: boolean;
   topFeatures: TopFeature[];

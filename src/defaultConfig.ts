@@ -37,6 +37,7 @@ export const defaultConfig: SiteConfig = {
     muted: '#8a8dab',
   },
   categories: ['All', 'Programming', 'Web Dev', 'CS Core'],
+  googleSearchConsoleCode: 'Qws0Q_HdGQqQKaNTIDC0KpqDAjsa9v17PZ1',
   showTopFeatures: true,
   showStats: true,
   topFeatures: [

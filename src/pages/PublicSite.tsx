@@ -31,6 +31,18 @@ export default function PublicSite() {
     });
   }, []);
 
+  useEffect(() => {
+    if (config?.googleSearchConsoleCode) {
+      let meta = document.querySelector('meta[name="google-site-verification"]');
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('name', 'google-site-verification');
+        document.head.appendChild(meta);
+      }
+      meta.setAttribute('content', config.googleSearchConsoleCode);
+    }
+  }, [config?.googleSearchConsoleCode]);
+
   if (!config) {
     return <div className="h-screen w-full flex items-center justify-center bg-[#07050f] text-white">Loading...</div>;
   }

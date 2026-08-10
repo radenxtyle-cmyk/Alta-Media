@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { SiteConfig } from '../types';
-import { Type, Palette, Layout, Columns, Grid, Tag, FolderPlus, Plus, Trash2, Eye, EyeOff } from 'lucide-react';
+import { Type, Palette, Layout, Columns, Grid, Tag, FolderPlus, Plus, Trash2, Eye, EyeOff, Search } from 'lucide-react';
 
 interface Props {
   config: SiteConfig;
@@ -59,6 +59,28 @@ export default function AdminSidebar({ config, onChange }: Props) {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Google Search Console SEO */}
+      <div className="space-y-4">
+        <h3 className="font-semibold flex items-center gap-2 text-gray-300 border-b border-[#222] pb-2 text-sm">
+          <Search size={16} className="text-cyan-400" /> Google Search Console
+        </h3>
+        <div>
+          <label className="block text-[11px] font-medium text-gray-400 mb-1">
+            Verification Code (HTML Tag / Content)
+          </label>
+          <input 
+            type="text" 
+            value={config.googleSearchConsoleCode || ''} 
+            onChange={(e) => onChange({ ...config, googleSearchConsoleCode: e.target.value })} 
+            placeholder="misal: Qws0Q_HdGQqQKaNTIDC0KpqDAjsa9v17PZ1" 
+            className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-cyan-300 font-mono focus:border-cyan-500 outline-none" 
+          />
+          <p className="text-[10px] text-gray-500 mt-1">
+            Kode verifikasi ini otomatis dimasukkan ke tag <code className="text-cyan-400">&lt;meta name="google-site-verification" content="..."&gt;</code> di head situs Anda.
+          </p>
         </div>
       </div>
 
