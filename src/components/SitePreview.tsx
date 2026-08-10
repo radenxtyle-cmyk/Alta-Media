@@ -257,21 +257,26 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
               <p className="text-xs leading-relaxed mb-6 max-w-xl" style={{ color: colors.muted }}>{config.resume.cardDesc}</p>
               
               <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8">
-                 {['ATS Friendly', 'Multiple Templates', 'PDF Export', '100% Free'].map(tag => (
-                   <span key={tag} className="text-[10px] font-bold px-2.5 py-1.5 rounded-md bg-white/5 flex items-center gap-1.5 uppercase tracking-wider border border-white/5">
-                     <Icons.Check size={10} style={{ color: colors.secondary }}/> {tag}
-                   </span>
-                 ))}
+                 {(config.resume.featureTags ?? 'ATS Friendly, Multiple Templates, PDF Export, 100% Free')
+                   .split(',')
+                   .map(tag => tag.trim())
+                   .filter(Boolean)
+                   .map(tag => (
+                     <span key={tag} className="text-[10px] font-bold px-2.5 py-1.5 rounded-md bg-white/5 flex items-center gap-1.5 uppercase tracking-wider border border-white/5">
+                       <Icons.Check size={10} style={{ color: colors.secondary }}/> {tag}
+                     </span>
+                   ))}
               </div>
               
-              <button 
-                className="px-8 py-3.5 rounded-xl text-xs font-bold text-white transition-all hover:scale-105 hover:shadow-2xl w-full md:w-auto"
+              <a 
+                href={config.resume.ctaUrl || '#'}
+                target={config.resume.ctaUrl && config.resume.ctaUrl.startsWith('http') ? '_blank' : '_self'}
+                rel="noopener noreferrer"
+                className="px-8 py-3.5 rounded-xl text-xs font-bold text-white transition-all hover:scale-105 hover:shadow-2xl w-full md:w-auto inline-flex items-center justify-center gap-2 uppercase tracking-wider text-center cursor-pointer"
                 style={{ backgroundColor: colors.secondary, boxShadow: `0 0 20px ${colors.secondary}40` }}
               >
-                <span className="flex items-center justify-center gap-2 uppercase tracking-wider">
-                   <Icons.ExternalLink size={14} /> {config.resume.ctaText}
-                </span>
-              </button>
+                <Icons.ExternalLink size={14} /> {config.resume.ctaText}
+              </a>
             </div>
           </div>
         </div>

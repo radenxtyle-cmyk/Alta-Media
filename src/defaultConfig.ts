@@ -24,6 +24,8 @@ export const defaultConfig: SiteConfig = {
     cardTitle: 'AI Resume Builder',
     cardDesc: 'Fill in your details, pick a template, and get a clean PDF resume ready to send to recruiters. No account required. No cost. Built for students and freshers.',
     ctaText: 'Open Resume Builder',
+    ctaUrl: 'https://example.com',
+    featureTags: 'ATS Friendly, Multiple Templates, PDF Export, 100% Free',
   },
   colors: {
     primary: '#00e5ff',

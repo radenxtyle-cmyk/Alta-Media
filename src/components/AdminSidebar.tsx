@@ -462,8 +462,28 @@ export default function AdminSidebar({ config, onChange }: Props) {
             <textarea value={config.resume.cardDesc} onChange={(e) => updateConfig('resume', 'cardDesc', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none h-16 resize-none" />
           </div>
           <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Feature Badges (Pisahkan dengan koma)</label>
+            <input 
+              type="text" 
+              value={config.resume.featureTags ?? 'ATS Friendly, Multiple Templates, PDF Export, 100% Free'} 
+              onChange={(e) => updateConfig('resume', 'featureTags', e.target.value)} 
+              className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+              placeholder="ATS Friendly, Multiple Templates, PDF Export, 100% Free"
+            />
+          </div>
+          <div>
             <label className="block text-[11px] font-medium text-gray-500 mb-2">Button Text</label>
             <input type="text" value={config.resume.ctaText} onChange={(e) => updateConfig('resume', 'ctaText', e.target.value)} className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" />
+          </div>
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Button Link URL (Destination Link)</label>
+            <input 
+              type="text" 
+              value={config.resume.ctaUrl || ''} 
+              onChange={(e) => updateConfig('resume', 'ctaUrl', e.target.value)} 
+              className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-cyan-400 font-mono focus:border-cyan-500 outline-none" 
+              placeholder="https://example.com or https://t.me/yourlink"
+            />
           </div>
         </div>
       </div>

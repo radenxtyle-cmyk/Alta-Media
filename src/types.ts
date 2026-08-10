@@ -55,6 +55,8 @@ export interface SiteConfig {
     cardTitle: string;
     cardDesc: string;
     ctaText: string;
+    ctaUrl?: string;
+    featureTags?: string;
   };
   colors: {
     primary: string;
