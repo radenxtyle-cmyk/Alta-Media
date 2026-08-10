@@ -176,8 +176,17 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
             {filteredSubjects.map(s => (
-              <div key={s.id} className="p-6 rounded-xl border flex flex-col h-full transition-all hover:-translate-y-1 hover:shadow-2xl" style={{ backgroundColor: colors.cardBg, borderColor: colors.border }}>
-                <div className="flex gap-4 mb-6">
+              <div 
+                key={s.id} 
+                className="relative p-6 rounded-xl border flex flex-col h-full transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/50 hover:shadow-[0_12px_35px_-5px_rgba(147,51,234,0.35),0_0_20px_rgba(0,229,255,0.2)] group overflow-hidden" 
+                style={{ backgroundColor: colors.cardBg, borderColor: colors.border }}
+              >
+                {/* Top Gradient Highlight Bar on Hover */}
+                <div className="absolute top-0 inset-x-0 h-[2.5px] bg-gradient-to-r from-purple-500 via-indigo-400 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                {/* Subtle Top Inner Glow */}
+                <div className="absolute -top-10 inset-x-0 h-20 bg-gradient-to-b from-cyan-400/10 via-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+
+                <div className="flex gap-4 mb-6 relative z-10">
                   <div className="p-3 rounded-xl h-fit flex-shrink-0 bg-gradient-to-br" style={{ backgroundImage: `linear-gradient(to bottom right, ${colors.primary}20, transparent)`, color: colors.primary, border: `1px solid ${colors.primary}30` }}>
                     {getIcon(s.icon, 24)}
                   </div>
@@ -187,7 +196,7 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
                   </div>
                 </div>
                 
-                <div className="mt-auto flex flex-row flex-wrap gap-2 mb-6">
+                <div className="mt-auto flex flex-row flex-wrap gap-2 mb-6 relative z-10">
                   {s.isFreeEnabled !== false && (
                     <div className="flex items-center gap-1.5 text-[9px] font-bold px-2 py-1 rounded w-fit text-green-400 bg-green-400/10 uppercase tracking-wider">
                       <Icons.CheckCircle size={10} /> FREE
@@ -200,7 +209,7 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
                   )}
                 </div>
 
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 gap-2 relative z-10">
                   <button 
                     onClick={() => {
                       if (s.previewUrl) {
