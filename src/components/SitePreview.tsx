@@ -52,7 +52,7 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
         </Link>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 space-y-12">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 pt-4 pb-2 space-y-8 md:space-y-10">
          
         {/* HERO SECTION */}
         <div className="text-center py-6 md:py-12 relative overflow-hidden">
@@ -282,14 +282,14 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
         </div>
 
         {/* Footer */}
-        <div id="community" className="pt-2 pb-12">
+        <div id="community" className="pt-0 pb-1">
           {/* Top Footer: Community & Socials */}
-          <div className="text-center mb-10">
-            <div className="text-[11px] font-black tracking-widest uppercase mb-3 flex items-center justify-center gap-2 text-cyan-400">
+          <div className="text-center mb-4">
+            <div className="text-[11px] font-black tracking-widest uppercase mb-2 flex items-center justify-center gap-2 text-cyan-400">
               <Icons.MessageCircle size={14} /> {config.footer.stayConnectedText || 'STAY CONNECTED'}
             </div>
-            <h2 className="font-display text-3xl md:text-5xl font-black tracking-tight mb-4">{config.footer.communityTitle || config.footer.community || 'Join the Community'}</h2>
-            <p className="text-xs md:text-sm max-w-xl mx-auto leading-relaxed mb-8 font-medium" style={{ color: colors.muted }}>
+            <h2 className="font-display text-2xl md:text-4xl font-black tracking-tight mb-2">{config.footer.communityTitle || config.footer.community || 'Join the Community'}</h2>
+            <p className="text-xs md:text-sm max-w-xl mx-auto leading-relaxed mb-4 font-medium" style={{ color: colors.muted }}>
               {config.footer.communityDescription || 'Get updates, ask doubts, and access premium notes — connect with us on every platform.'}
             </p>
 
@@ -351,12 +351,12 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
           </div>
 
           {/* Bottom Footer Section */}
-          <div className="w-full border-t pt-10 pb-6 text-center" style={{ borderColor: colors.border }}>
-            <div className="font-display text-xl font-black tracking-widest uppercase mb-2 flex items-center justify-center gap-2" style={{ color: colors.primary }}>
-              <span className="text-cyan-400 font-mono font-black tracking-tighter text-xl">&lt;/&gt;</span>
+          <div className="w-full border-t pt-3 pb-1 text-center" style={{ borderColor: colors.border }}>
+            <div className="font-display text-lg font-black tracking-widest uppercase mb-0.5 flex items-center justify-center gap-2" style={{ color: colors.primary }}>
+              <span className="text-cyan-400 font-mono font-black tracking-tighter text-lg">&lt;/&gt;</span>
               {config.header.logoText}
             </div>
-            <div className="text-[10px] font-bold tracking-[0.25em] uppercase mb-8" style={{ color: colors.muted }}>
+            <div className="text-[10px] font-bold tracking-[0.2em] uppercase mb-1" style={{ color: colors.muted }}>
               {config.footer.brandTagline || 'LEARN · CODE · BUILD · SUCCEED'}
             </div>
             <div className="text-xs font-medium" style={{ color: colors.muted }}>
