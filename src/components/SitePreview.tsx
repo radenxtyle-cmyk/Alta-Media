@@ -291,14 +291,14 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
         </div>
 
         {/* Footer */}
-        <div id="community" className="pt-0 pb-1">
+        <div id="community" className="pt-2 pb-4">
           {/* Top Footer: Community & Socials */}
-          <div className="text-center mb-4">
+          <div className="text-center mb-8">
             <div className="text-[11px] font-black tracking-widest uppercase mb-2 flex items-center justify-center gap-2 text-cyan-400">
               <Icons.MessageCircle size={14} /> {config.footer.stayConnectedText || 'STAY CONNECTED'}
             </div>
-            <h2 className="font-display text-2xl md:text-4xl font-black tracking-tight mb-2">{config.footer.communityTitle || config.footer.community || 'Join the Community'}</h2>
-            <p className="text-xs md:text-sm max-w-xl mx-auto leading-relaxed mb-4 font-medium" style={{ color: colors.muted }}>
+            <h2 className="font-display text-2xl md:text-4xl font-black tracking-tight mb-3">{config.footer.communityTitle || config.footer.community || 'Join the Community'}</h2>
+            <p className="text-xs md:text-sm max-w-xl mx-auto leading-relaxed mb-6 font-medium" style={{ color: colors.muted }}>
               {config.footer.communityDescription || 'Get updates, ask doubts, and access premium notes — connect with us on every platform.'}
             </p>
 
@@ -360,7 +360,7 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
           </div>
 
           {/* Bottom Footer Section */}
-          <div className="w-full border-t pt-3 pb-1 text-center" style={{ borderColor: colors.border }}>
+          <div className="w-full border-t pt-6 pb-2 text-center" style={{ borderColor: colors.border }}>
             <div className="font-display text-lg font-black tracking-widest uppercase mb-0.5 flex items-center justify-center gap-2" style={{ color: colors.primary }}>
               <span className="text-cyan-400 font-mono font-black tracking-tighter text-lg">&lt;/&gt;</span>
               {config.header.logoText}
