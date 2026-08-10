@@ -169,10 +169,10 @@ export default function AdminDashboard() {
         {/* Admin Sidebar */}
         <aside 
           className={`${
-            isSidebarOpen ? 'w-72 translate-x-0' : 'w-0 -translate-x-full'
-          } transition-all duration-300 ease-in-out bg-[#0F0F0F] border-r border-[#222] flex-shrink-0 z-20 flex flex-col`}
+            isSidebarOpen ? 'w-84 md:w-96 translate-x-0' : 'w-0 -translate-x-full'
+          } transition-all duration-300 ease-in-out bg-[#0F0F0F] border-r border-[#222] flex-shrink-0 z-20 flex flex-col overflow-x-hidden`}
         >
-          <div className="h-full overflow-y-auto w-72">
+          <div className="h-full overflow-y-auto overflow-x-hidden w-84 md:w-96">
             <AdminSidebar config={config} onChange={setConfig} />
           </div>
         </aside>

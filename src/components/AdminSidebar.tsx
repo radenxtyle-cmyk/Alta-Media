@@ -38,7 +38,7 @@ export default function AdminSidebar({ config, onChange }: Props) {
   };
 
   return (
-    <div className="p-4 space-y-8 pb-20">
+    <div className="p-4 space-y-8 pb-20 overflow-x-hidden min-w-0 w-full">
       <div className="border-b border-[#222] pb-4 mb-4">
         <h2 className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-1">Editor Controls</h2>
         <p className="text-[11px] text-gray-500">Manage site content in real-time.</p>
@@ -379,7 +379,7 @@ export default function AdminSidebar({ config, onChange }: Props) {
         </div>
 
         {/* Add Category Form */}
-        <div className="flex gap-2 pt-1">
+        <div className="flex gap-2 pt-1 min-w-0">
           <input
             type="text"
             value={newCatInput}
@@ -391,12 +391,12 @@ export default function AdminSidebar({ config, onChange }: Props) {
               }
             }}
             placeholder="Kategori Baru (misal: Mobile Apps)"
-            className="flex-1 px-3 py-1.5 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-cyan-500 outline-none"
+            className="flex-1 min-w-0 px-3 py-1.5 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-cyan-500 outline-none"
           />
           <button
             type="button"
             onClick={handleAddCategory}
-            className="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs rounded transition-colors flex items-center gap-1 cursor-pointer"
+            className="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs rounded transition-colors flex items-center gap-1 shrink-0 whitespace-nowrap cursor-pointer"
           >
             <Plus size={14} /> Add Category
           </button>
