@@ -52,49 +52,65 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
         </Link>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 pt-4 pb-2 space-y-8 md:space-y-10">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 pt-2 pb-2 space-y-6 md:space-y-8">
          
         {/* HERO SECTION */}
-        <div className="text-center py-6 md:py-12 relative overflow-hidden">
+        <div className="text-center pt-2 pb-2 md:pt-4 md:pb-4 relative overflow-hidden">
           {/* Top Pill Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/30 text-cyan-400 text-xs font-mono mb-8 shadow-[0_0_15px_rgba(0,229,255,0.15)]">
-            <span>{config.hero.tagline || '</> Free & Premium Study Material'}</span>
-          </div>
+          {config.hero.tagline && (
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/30 text-cyan-400 text-xs font-mono mb-7 sm:mb-8 shadow-[0_0_15px_rgba(0,229,255,0.15)]">
+              <span>{config.hero.tagline}</span>
+            </div>
+          )}
 
           {/* Large Graphic Title */}
-          <div className="mb-8 flex flex-col items-center justify-center px-2">
-            <h1 className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-wider sm:tracking-widest text-white drop-shadow-md uppercase break-all">
-              {config.hero.titleTop ?? 'CODE'}
-            </h1>
-            {(config.hero.titleMiddle ?? 'WITH') ? (
-              <div className="text-[10px] sm:text-xs md:text-sm font-bold tracking-[0.3em] sm:tracking-[0.5em] uppercase text-gray-500 my-1.5 sm:my-2">
-                {config.hero.titleMiddle ?? 'WITH'}
-              </div>
-            ) : null}
-            <div className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-wider sm:tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500 drop-shadow-[0_0_35px_rgba(0,229,255,0.4)] break-all">
-              {config.hero.titleBottom ?? 'AI'}
+          {(Boolean(config.hero.titleTop?.trim()) || Boolean(config.hero.titleMiddle?.trim()) || Boolean(config.hero.titleBottom?.trim())) && (
+            <div className="mb-5 flex flex-col items-center justify-center px-2">
+              {config.hero.titleTop?.trim() && (
+                <h1 className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-wider sm:tracking-widest text-white drop-shadow-md uppercase break-all">
+                  {config.hero.titleTop}
+                </h1>
+              )}
+              {config.hero.titleMiddle?.trim() && (
+                <div className="text-[10px] sm:text-xs md:text-sm font-bold tracking-[0.3em] sm:tracking-[0.5em] uppercase text-gray-500 my-1.5 sm:my-2">
+                  {config.hero.titleMiddle}
+                </div>
+              )}
+              {config.hero.titleBottom?.trim() && (
+                <div className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-wider sm:tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500 drop-shadow-[0_0_35px_rgba(0,229,255,0.4)] break-all">
+                  {config.hero.titleBottom}
+                </div>
+              )}
             </div>
-          </div>
+          )}
 
           {/* Middle Badge Row */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3 mb-8 max-w-2xl mx-auto px-2">
-            <div className="w-full sm:w-auto px-3.5 sm:px-4 py-2.5 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-[10px] sm:text-xs tracking-wider uppercase shadow-lg text-center flex items-center justify-center gap-2">
-              <Icons.Zap size={14} className="fill-current shrink-0" />
-              <span>{config.hero.subBadgeLeft || 'NOTES · RESUME BUILDER · COMMUNITY'}</span>
+          {(config.hero.subBadgeLeft || config.hero.subBadgeRight) && (
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3 mb-5 max-w-2xl mx-auto px-2">
+              {config.hero.subBadgeLeft && (
+                <div className="w-full sm:w-auto px-3.5 sm:px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-[10px] sm:text-xs tracking-wider uppercase shadow-lg text-center flex items-center justify-center gap-2">
+                  <Icons.Zap size={14} className="fill-current shrink-0" />
+                  <span>{config.hero.subBadgeLeft}</span>
+                </div>
+              )}
+              {config.hero.subBadgeRight && (
+                <div className="w-full sm:w-auto px-3.5 sm:px-4 py-2 rounded-lg bg-[#111025] border border-[#262445] text-gray-300 font-mono text-[10px] sm:text-xs text-center flex items-center justify-center gap-1.5 flex-wrap">
+                  <span className="text-purple-400">print</span>
+                  <span className="text-gray-400">(</span>
+                  <span className="text-cyan-400">"{config.hero.subBadgeRight}"</span>
+                  <span className="text-gray-400">)</span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse ml-0.5 shrink-0"></span>
+                </div>
+              )}
             </div>
-            <div className="w-full sm:w-auto px-3.5 sm:px-4 py-2.5 rounded-lg bg-[#111025] border border-[#262445] text-gray-300 font-mono text-[10px] sm:text-xs text-center flex items-center justify-center gap-1.5 flex-wrap">
-              <span className="text-purple-400">print</span>
-              <span className="text-gray-400">(</span>
-              <span className="text-cyan-400">"{config.hero.subBadgeRight || 'Start learning for free'}"</span>
-              <span className="text-gray-400">)</span>
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse ml-0.5 shrink-0"></span>
-            </div>
-          </div>
+          )}
 
           {/* Subtitle Paragraph */}
-          <p className="max-w-2xl mx-auto text-xs sm:text-sm md:text-base leading-relaxed text-gray-400 font-medium mb-8 sm:mb-10 px-2">
-            {config.hero.subtitle}
-          </p>
+          {config.hero.subtitle && (
+            <p className="max-w-2xl mx-auto text-xs sm:text-sm md:text-base leading-relaxed text-gray-400 font-medium mb-5 px-2">
+              {config.hero.subtitle}
+            </p>
+          )}
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-xs sm:max-w-none mx-auto">
