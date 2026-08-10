@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { SiteConfig } from '../types';
-import { Type, Palette, Layout, Columns, Grid } from 'lucide-react';
+import { Type, Palette, Layout, Columns, Grid, Tag, FolderPlus, Plus, Trash2 } from 'lucide-react';
 
 interface Props {
   config: SiteConfig;
@@ -7,6 +8,8 @@ interface Props {
 }
 
 export default function AdminSidebar({ config, onChange }: Props) {
+  const [newCatInput, setNewCatInput] = useState('');
+
   const updateConfig = (section: keyof SiteConfig, key: string, value: any) => {
     onChange({
       ...config,
@@ -19,6 +22,19 @@ export default function AdminSidebar({ config, onChange }: Props) {
 
   const updateColor = (key: keyof SiteConfig['colors'], value: string) => {
     onChange({ ...config, colors: { ...config.colors, [key]: value } });
+  };
+
+  const handleAddCategory = () => {
+    const trimmed = newCatInput.trim();
+    if (!trimmed) return;
+    const currentCats = config.categories || ['All', 'Programming', 'Web Dev', 'CS Core'];
+    if (!currentCats.map(c => c.toLowerCase()).includes(trimmed.toLowerCase())) {
+      onChange({
+        ...config,
+        categories: [...currentCats, trimmed]
+      });
+    }
+    setNewCatInput('');
   };
 
   return (
@@ -325,6 +341,68 @@ export default function AdminSidebar({ config, onChange }: Props) {
         </div>
       </div>
 
+      {/* Categories Management */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between border-b border-[#222] pb-2">
+          <h3 className="font-semibold flex items-center gap-2 text-gray-300 text-sm">
+            <Tag size={16} /> Category Management
+          </h3>
+        </div>
+
+        <p className="text-[11px] text-gray-400">
+          Tambah atau hapus Kategori untuk memfilter Subject/Materi di website.
+        </p>
+
+        {/* List of existing categories */}
+        <div className="flex flex-wrap gap-1.5 py-1">
+          {(config.categories || ['All', 'Programming', 'Web Dev', 'CS Core']).map((cat, idx) => (
+            <div 
+              key={cat + idx} 
+              className="flex items-center gap-1.5 px-2.5 py-1 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-200"
+            >
+              <span className="font-medium text-cyan-400">{cat}</span>
+              {cat !== 'All' && (
+                <button
+                  type="button"
+                  title={`Hapus kategori ${cat}`}
+                  onClick={() => {
+                    const updated = (config.categories || []).filter(c => c !== cat);
+                    onChange({ ...config, categories: updated });
+                  }}
+                  className="text-gray-500 hover:text-red-400 ml-1 text-[11px] font-bold"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Add Category Form */}
+        <div className="flex gap-2 pt-1">
+          <input
+            type="text"
+            value={newCatInput}
+            onChange={(e) => setNewCatInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handleAddCategory();
+              }
+            }}
+            placeholder="Kategori Baru (misal: Mobile Apps)"
+            className="flex-1 px-3 py-1.5 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-cyan-500 outline-none"
+          />
+          <button
+            type="button"
+            onClick={handleAddCategory}
+            className="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs rounded transition-colors flex items-center gap-1 cursor-pointer"
+          >
+            <Plus size={14} /> Add Category
+          </button>
+        </div>
+      </div>
+
       {/* Subjects Configuration */}
       <div className="space-y-4">
         <div className="flex items-center justify-between border-b border-[#222] pb-2">
@@ -338,13 +416,13 @@ export default function AdminSidebar({ config, onChange }: Props) {
                 title: 'New Subject',
                 description: 'Description',
                 icon: 'Code',
-                category: (config.categories && config.categories.length > 1) ? config.categories[1] : 'All'
+                category: (config.categories && config.categories.length > 1) ? config.categories[1] : 'Programming'
               }];
               onChange({ ...config, subjects: newSubjects });
             }}
-            className="text-[10px] bg-[#222] hover:bg-[#333] px-2 py-1 rounded text-white"
+            className="text-[10px] bg-[#222] hover:bg-[#333] px-2.5 py-1 rounded text-white font-medium flex items-center gap-1"
           >
-            + Add Subject
+            <Plus size={12} /> Add Subject
           </button>
         </div>
         <div className="space-y-4 pr-2">
@@ -377,16 +455,43 @@ export default function AdminSidebar({ config, onChange }: Props) {
               </div>
               <div>
                 <label className="block text-[11px] font-medium text-gray-500 mb-1">Category</label>
-                <select value={subject.category} onChange={(e) => {
-                  const newSubjects = [...config.subjects];
-                  newSubjects[index].category = e.target.value;
-                  onChange({ ...config, subjects: newSubjects });
-                }} className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none">
-                  <option value="">Select Category...</option>
-                  {(config.categories || ['All', 'Programming', 'Web Dev', 'CS Core']).filter(c => c !== 'All').map(c => (
-                    <option key={c} value={c}>{c}</option>
-                  ))}
-                </select>
+                <div className="space-y-1.5">
+                  <select 
+                    value={(config.categories || []).includes(subject.category) ? subject.category : ''} 
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (val) {
+                        const newSubjects = [...config.subjects];
+                        newSubjects[index].category = val;
+                        onChange({ ...config, subjects: newSubjects });
+                      }
+                    }} 
+                    className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none"
+                  >
+                    <option value="">Pilih / Ketik Kategori...</option>
+                    {(config.categories || ['All', 'Programming', 'Web Dev', 'CS Core']).filter(c => c !== 'All').map(c => (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                  </select>
+                  <input 
+                    type="text" 
+                    value={subject.category} 
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      const newSubjects = [...config.subjects];
+                      newSubjects[index].category = val;
+                      
+                      const currentCats = config.categories || ['All', 'Programming', 'Web Dev', 'CS Core'];
+                      let newCats = currentCats;
+                      if (val.trim() && !currentCats.map(c => c.toLowerCase()).includes(val.trim().toLowerCase())) {
+                        newCats = [...currentCats, val.trim()];
+                      }
+                      onChange({ ...config, categories: newCats, subjects: newSubjects });
+                    }} 
+                    placeholder="Atau ketik nama Kategori baru..." 
+                    className="w-full px-2 py-1 bg-[#222] border border-[#444] rounded text-xs text-cyan-400 font-medium focus:border-cyan-500 outline-none" 
+                  />
+                </div>
               </div>
               <div>
                 <label className="block text-[11px] font-medium text-gray-500 mb-1">Description</label>
