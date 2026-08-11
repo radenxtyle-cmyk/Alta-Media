@@ -2,6 +2,7 @@ import { SiteConfig } from '../types';
 import * as Icons from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { GhostCard3D } from './GhostCard3D';
 
 export default function SitePreview({ config }: { config: SiteConfig }) {
   const categories = config.categories || ['All', 'Programming', 'Web Dev', 'CS Core'];
@@ -133,14 +134,14 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
 
         {/* Top Features */}
         {config.showTopFeatures !== false && (
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {(config.topFeatures || []).map(f => (
-              <div key={f.id} className="p-4 rounded-xl border border-transparent transition-all hover:shadow-[0_0_20px_rgba(0,229,255,0.15)] group" style={{ backgroundColor: colors.cardBg, borderColor: colors.border }}>
-                <div className="mb-4 w-10 h-10 rounded-lg flex items-center justify-center bg-white/5 group-hover:scale-110 transition-transform shadow-inner" style={{ color: colors.primary }}>
-                  {getIcon(f.icon, 20)}
-                </div>
-                <h4 className="font-display text-[11px] font-black tracking-wider uppercase mb-1.5">{f.title}</h4>
-                <p className="text-[10px] leading-relaxed" style={{ color: colors.muted }}>{f.subtitle}</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {(config.topFeatures || []).filter(f => f.title !== 'VIDEO TUTORIALS').map(f => (
+              <div key={f.id} className="h-48">
+                 <GhostCard3D 
+                   title={f.title} 
+                   subtitle={f.subtitle} 
+                   icon={getIcon(f.icon, 20)} 
+                 />
               </div>
             ))}
           </div>

@@ -41,7 +41,6 @@ export const defaultConfig: SiteConfig = {
   showTopFeatures: true,
   showStats: true,
   topFeatures: [
-    { id: '1', title: 'VIDEO TUTORIALS', subtitle: 'Watch concept videos on YouTube - beginner to advanced', icon: 'Youtube' },
     { id: '2', title: 'FREE PDF NOTES', subtitle: 'Download clean notes for every subject - no signup', icon: 'FileText' },
     { id: '3', title: 'PREMIUM ON TELEGRAM', subtitle: 'Detailed notes delivered directly in Telegram chat', icon: 'Send' },
     { id: '4', title: 'INSTANT PREVIEW', subtitle: 'Read before you download - no surprises', icon: 'Eye' },
