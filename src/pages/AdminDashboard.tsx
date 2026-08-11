@@ -16,6 +16,16 @@ export default function AdminDashboard() {
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [isLampOn, setIsLampOn] = useState(true);
+  const [isPulling, setIsPulling] = useState(false);
+
+  const handleLampPull = () => {
+    setIsPulling(true);
+    setTimeout(() => {
+      setIsPulling(false);
+      setIsLampOn(prev => !prev);
+    }, 200);
+  };
 
   useEffect(() => {
     if (!token) return;
@@ -86,23 +96,45 @@ export default function AdminDashboard() {
 
   if (!token) {
     return (
-      <div className="h-screen w-full flex items-center justify-center bg-[#07050f] text-white font-sans">
-        <form onSubmit={handleLogin} className="bg-[#131127] p-8 rounded-xl border border-[#262445] w-full max-w-sm flex flex-col gap-4 shadow-2xl">
-          <div className="text-center mb-4">
-            <div className="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center font-bold text-white text-xl mx-auto mb-4 shadow-lg shadow-indigo-500/20">
-              W
-            </div>
-            <h1 className="text-xl font-bold tracking-tight">Admin Dashboard</h1>
-            <p className="text-sm text-[#8a8dab] mt-1">Please enter your password</p>
+      <div className={`h-screen w-full flex flex-col md:flex-row items-center justify-center gap-16 md:gap-32 transition-colors duration-1000 ${isLampOn ? 'bg-[#171615]' : 'bg-[#0a0a0a]'} text-white font-sans relative overflow-hidden`}>
+        {/* Background ambient glow */}
+        <div className={`absolute top-1/2 left-[30%] -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-yellow-400/5 rounded-full blur-[120px] pointer-events-none transition-opacity duration-1000 ${isLampOn ? 'opacity-100' : 'opacity-0'}`}></div>
+
+        {/* Lamp CSS Art */}
+        <div className="relative flex flex-col items-center z-10 hidden md:flex">
+          {/* Intense Glow */}
+          <div className={`absolute top-10 w-96 h-96 bg-yellow-100/10 blur-[80px] rounded-full pointer-events-none transition-opacity duration-500 ${isLampOn ? 'opacity-100' : 'opacity-0'}`}></div>
+          
+          {/* Lampshade */}
+          <div className={`w-56 h-24 rounded-t-[100px] relative z-10 transition-all duration-500 ${isLampOn ? 'bg-[#f4f4f5] shadow-[inset_0_-5px_15px_rgba(0,0,0,0.1),0_10px_40px_rgba(255,255,255,0.2)]' : 'bg-[#a1a1aa] shadow-[inset_0_-5px_15px_rgba(0,0,0,0.3)]'}`}></div>
+          
+          {/* Pull chain */}
+          <div 
+            onClick={handleLampPull}
+            className="absolute top-24 left-1/2 ml-8 w-[2px] h-20 bg-gray-400/40 z-10 flex flex-col items-center justify-end group cursor-pointer"
+          >
+            <div className={`w-4 h-4 bg-[#b5835a] rounded-full shadow-md transition-transform duration-200 ${isPulling ? 'translate-y-8' : 'group-hover:translate-y-2'}`}></div>
           </div>
           
-          <div>
+          {/* Stand */}
+          <div className="w-4 h-56 bg-[#e4e4e7] z-10 shadow-[-5px_0_10px_rgba(0,0,0,0.05)]"></div>
+          
+          {/* Base */}
+          <div className="w-40 h-5 bg-[#f4f4f5] rounded-full z-10 shadow-[0_5px_15px_rgba(0,0,0,0.3)]"></div>
+        </div>
+
+        {/* Login Form Card */}
+        <form onSubmit={handleLogin} className={`backdrop-blur-2xl border transition-all duration-1000 p-10 rounded-[32px] w-full max-w-[360px] flex flex-col gap-6 z-10 mx-4 md:mx-0 ${isLampOn ? 'bg-white/[0.03] border-white/5 shadow-2xl opacity-100' : 'opacity-0 pointer-events-none'}`}>
+          <h2 className="text-white text-[22px] font-semibold text-center mb-2">Welcome</h2>
+          
+          <div className="flex flex-col gap-2">
+            <label className="text-white/50 text-xs ml-1">Password</label>
             <input 
               type="password" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              className="w-full px-4 py-3 bg-[#07050f] border border-[#262445] rounded-lg text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+              placeholder="Enter Password"
+              className="bg-black/20 border border-white/5 rounded-2xl px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-yellow-500/30 transition-colors"
               required
             />
           </div>
@@ -112,9 +144,9 @@ export default function AdminDashboard() {
           <button 
             type="submit"
             disabled={isLoggingIn}
-            className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 rounded-lg transition-colors disabled:opacity-50 mt-2"
+            className="mt-2 w-full bg-gradient-to-r from-[#e3c178] via-[#ffd770] to-[#e3c178] text-yellow-950 font-bold text-sm py-3.5 rounded-2xl shadow-[0_0_20px_rgba(255,215,112,0.15)] hover:shadow-[0_0_30px_rgba(255,215,112,0.3)] hover:scale-[1.02] transition-all disabled:opacity-50"
           >
-            {isLoggingIn ? 'Logging in...' : 'Login'}
+            {isLoggingIn ? 'Signing In...' : 'Sign In'}
           </button>
         </form>
       </div>
