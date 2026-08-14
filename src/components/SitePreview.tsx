@@ -3,6 +3,7 @@ import * as Icons from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GhostCard3D } from './GhostCard3D';
+import { ToolsMegaMenu } from './ToolsMegaMenu';
 
 export default function SitePreview({ config }: { config: SiteConfig }) {
   const categories = config.categories || ['All', 'Programming', 'Web Dev', 'CS Core'];
@@ -39,7 +40,7 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
         </div>
         <div className="hidden md:flex items-center gap-6 text-[11px] font-bold tracking-widest uppercase" style={{ color: colors.muted }}>
           <a href="#subjects" className="flex items-center gap-2 hover:text-white transition-colors"><Icons.BookOpen size={14}/> Notes</a>
-          <a href="#resume" className="flex items-center gap-2 hover:text-white transition-colors"><Icons.Wrench size={14}/> Tools</a>
+          <ToolsMegaMenu />
           <a href="#community" className="flex items-center gap-2 hover:text-white transition-colors"><Icons.Users size={14}/> Community</a>
         </div>
         <Link to="/admin">
