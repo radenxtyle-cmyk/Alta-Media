@@ -31,6 +31,22 @@ export interface SocialLink {
   enabled?: boolean;
 }
 
+export interface ToolCategory {
+  id: string;
+  name: string;
+  icon: string;
+  count: number;
+  description: string;
+}
+
+export interface ToolComponent {
+  id: string;
+  title: string;
+  description: string;
+  categoryId: string;
+  isFree?: boolean;
+}
+
 export interface SiteConfig {
   header: {
     logoText: string;
@@ -74,6 +90,11 @@ export interface SiteConfig {
   topFeatures: TopFeature[];
   stats: Stat[];
   subjects: Subject[];
+  toolsMenu?: {
+    enabled?: boolean;
+    categories: ToolCategory[];
+    components: ToolComponent[];
+  };
   footer: {
     cta: string;
     community: string;

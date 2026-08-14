@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { SiteConfig } from '../types';
-import { Type, Palette, Layout, Columns, Grid, Tag, FolderPlus, Plus, Trash2, Eye, EyeOff, Search } from 'lucide-react';
+import { Type, Palette, Layout, Columns, Grid, Tag, FolderPlus, Plus, Trash2, Eye, EyeOff, Search, Wrench } from 'lucide-react';
 
 interface Props {
   config: SiteConfig;
@@ -641,6 +641,82 @@ export default function AdminSidebar({ config, onChange }: Props) {
               className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-cyan-400 font-mono focus:border-cyan-500 outline-none" 
               placeholder="https://example.com or https://t.me/yourlink"
             />
+          </div>
+        </div>
+      </div>
+
+      {/* Tools Mega Menu Content */}
+      <div className="space-y-4">
+        <h3 className="font-semibold flex items-center gap-2 text-gray-300 border-b border-[#222] pb-2 text-sm">
+          <Wrench size={16} /> Tools Mega Menu
+        </h3>
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
+            <input 
+              type="checkbox" 
+              checked={config.toolsMenu?.enabled ?? true}
+              onChange={(e) => {
+                onChange({
+                  ...config,
+                  toolsMenu: {
+                    ...(config.toolsMenu || { categories: [], components: [] }),
+                    enabled: e.target.checked
+                  }
+                });
+              }}
+              className="w-4 h-4 rounded bg-[#1A1A1A] border-[#333] text-indigo-600 focus:ring-indigo-600 focus:ring-offset-gray-900"
+            />
+            <label className="text-xs text-gray-300">Enable Tools Mega Menu</label>
+          </div>
+          
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2 flex items-center justify-between">
+              <span>Categories (JSON format)</span>
+            </label>
+            <textarea 
+              value={JSON.stringify(config.toolsMenu?.categories || [], null, 2)} 
+              onChange={(e) => {
+                try {
+                  const parsed = JSON.parse(e.target.value);
+                  onChange({
+                    ...config,
+                    toolsMenu: {
+                      ...(config.toolsMenu || { enabled: true, components: [] }),
+                      categories: parsed
+                    }
+                  });
+                } catch (err) {
+                  // Ignore parse errors while typing
+                }
+              }} 
+              className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-[10px] text-cyan-400 font-mono focus:border-indigo-500 outline-none h-48 resize-y" 
+            />
+            <p className="text-[10px] text-gray-500 mt-1">Edit categories array. Each requires: id, name, icon, count, description.</p>
+          </div>
+
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2 flex items-center justify-between">
+              <span>Components (JSON format)</span>
+            </label>
+            <textarea 
+              value={JSON.stringify(config.toolsMenu?.components || [], null, 2)} 
+              onChange={(e) => {
+                try {
+                  const parsed = JSON.parse(e.target.value);
+                  onChange({
+                    ...config,
+                    toolsMenu: {
+                      ...(config.toolsMenu || { enabled: true, categories: [] }),
+                      components: parsed
+                    }
+                  });
+                } catch (err) {
+                  // Ignore parse errors while typing
+                }
+              }} 
+              className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-[10px] text-cyan-400 font-mono focus:border-indigo-500 outline-none h-48 resize-y" 
+            />
+            <p className="text-[10px] text-gray-500 mt-1">Edit components array. Each requires: id, title, description, categoryId, isFree.</p>
           </div>
         </div>
       </div>

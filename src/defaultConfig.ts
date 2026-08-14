@@ -62,6 +62,26 @@ export const defaultConfig: SiteConfig = {
     { id: '7', title: 'CSS', description: 'Styling, Flexbox, Grid, animations - made easy', icon: 'Palette', category: 'Web Dev', previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', isFreeEnabled: true, isPremiumEnabled: true },
     { id: '8', title: 'DBMS', description: 'SQL, ER diagrams, normalization, transactions', icon: 'Database', category: 'CS Core', previewUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', isFreeEnabled: true, isPremiumEnabled: true }
   ],
+  toolsMenu: {
+    enabled: true,
+    categories: [
+      { id: 'others', name: 'Others', icon: 'Sparkles', count: 235, description: 'Miscellaneous elements' },
+      { id: 'alerts', name: 'Alerts & Modals', icon: 'Bell', count: 11, description: 'Dialogs, toasts, and overlays' },
+      { id: 'badges', name: 'Badges & Tags', icon: 'Tag', count: 3, description: 'Status badges and labels' },
+      { id: 'buttons', name: 'Buttons', icon: 'Zap', count: 30, description: 'Interactive button styles' },
+      { id: 'cards', name: 'Cards & Grids', icon: 'Folder', count: 38, description: 'Product grids and cards' },
+      { id: 'charts', name: 'Charts & Data', icon: 'BarChart2', count: 7, description: 'Data visualization layouts' }
+    ],
+    components: [
+      { id: '1', title: 'Ai Usage Chart', description: 'A professional AI Usage & A...', categoryId: 'charts', isFree: true },
+      { id: '2', title: 'Scroll Paragraph', description: 'A professional scroll-trigger...', categoryId: 'charts', isFree: true },
+      { id: '3', title: 'Holographic Wave', description: 'A premium WebGL-based h...', categoryId: 'charts', isFree: true },
+      { id: '4', title: 'Liquid Glass Chart', description: 'A 3D glassmorphic chart vis...', categoryId: 'charts', isFree: true },
+      { id: '5', title: '3d Scroll Paragraph', description: 'A premium 3D typography c...', categoryId: 'charts', isFree: true },
+      { id: '6', title: 'Chart', description: 'A versatile chart componen...', categoryId: 'charts', isFree: true },
+      { id: '7', title: '3d Holographic Deck', description: '3D layer showcase featurin...', categoryId: 'charts', isFree: true }
+    ]
+  },
   footer: {
     cta: 'Start with free notes — master with premium notes.',
     community: 'Join the Community',

@@ -40,7 +40,7 @@ export default function SitePreview({ config }: { config: SiteConfig }) {
         </div>
         <div className="hidden md:flex items-center gap-6 text-[11px] font-bold tracking-widest uppercase" style={{ color: colors.muted }}>
           <a href="#subjects" className="flex items-center gap-2 hover:text-white transition-colors"><Icons.BookOpen size={14}/> Notes</a>
-          <ToolsMegaMenu />
+          <ToolsMegaMenu config={config} />
           <a href="#community" className="flex items-center gap-2 hover:text-white transition-colors"><Icons.Users size={14}/> Community</a>
         </div>
         <Link to="/admin">
