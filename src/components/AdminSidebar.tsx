@@ -721,6 +721,88 @@ export default function AdminSidebar({ config, onChange }: Props) {
         </div>
       </div>
 
+      {/* Blog/Component Content */}
+      <div className="space-y-4">
+        <h3 className="font-semibold flex items-center gap-2 text-gray-300 border-b border-[#222] pb-2 text-sm">
+          <Type size={16} /> Blog / Component Data
+        </h3>
+        <div className="space-y-3">
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Title</label>
+            <input 
+              type="text" 
+              value={config.blog?.title || ''} 
+              onChange={(e) => updateConfig('blog', 'title', e.target.value)} 
+              className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">Description (Markdown-like)</label>
+            <textarea 
+              value={config.blog?.description || ''} 
+              onChange={(e) => updateConfig('blog', 'description', e.target.value)} 
+              className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none h-20 resize-y" 
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">About Text</label>
+            <textarea 
+              value={config.blog?.aboutText || ''} 
+              onChange={(e) => updateConfig('blog', 'aboutText', e.target.value)} 
+              className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none h-24 resize-y" 
+            />
+          </div>
+          
+          <div className="grid grid-cols-2 gap-2">
+            <div>
+              <label className="block text-[11px] font-medium text-gray-500 mb-2">Views</label>
+              <input 
+                type="text" 
+                value={config.blog?.views || ''} 
+                onChange={(e) => updateConfig('blog', 'views', e.target.value)} 
+                className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+              />
+            </div>
+            <div>
+              <label className="block text-[11px] font-medium text-gray-500 mb-2">Price</label>
+              <input 
+                type="text" 
+                value={config.blog?.price || ''} 
+                onChange={(e) => updateConfig('blog', 'price', e.target.value)} 
+                className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+              />
+            </div>
+            <div>
+              <label className="block text-[11px] font-medium text-gray-500 mb-2">Tech Stack</label>
+              <input 
+                type="text" 
+                value={config.blog?.techStack || ''} 
+                onChange={(e) => updateConfig('blog', 'techStack', e.target.value)} 
+                className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+              />
+            </div>
+            <div>
+              <label className="block text-[11px] font-medium text-gray-500 mb-2">Source Assets</label>
+              <input 
+                type="text" 
+                value={config.blog?.sourceAssets || ''} 
+                onChange={(e) => updateConfig('blog', 'sourceAssets', e.target.value)} 
+                className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-xs text-gray-300 focus:border-indigo-500 outline-none" 
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-[11px] font-medium text-gray-500 mb-2">HTML Code (Snippet)</label>
+            <textarea 
+              value={config.blog?.htmlCode || ''} 
+              onChange={(e) => updateConfig('blog', 'htmlCode', e.target.value)} 
+              className="w-full px-3 py-2 bg-[#1A1A1A] border border-[#333] rounded text-[10px] text-green-400 font-mono focus:border-indigo-500 outline-none h-48 resize-y" 
+            />
+          </div>
+        </div>
+      </div>
+
       {/* Footer Content */}
       <div className="space-y-4">
         <h3 className="font-semibold flex items-center gap-2 text-gray-300 border-b border-[#222] pb-2 text-sm">

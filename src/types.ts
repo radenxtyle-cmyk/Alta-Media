@@ -47,6 +47,17 @@ export interface ToolComponent {
   isFree?: boolean;
 }
 
+export interface BlogData {
+  title: string;
+  views: string;
+  description: string;
+  aboutText: string;
+  price: string;
+  techStack: string;
+  sourceAssets: string;
+  htmlCode: string;
+}
+
 export interface SiteConfig {
   header: {
     logoText: string;
@@ -95,6 +106,7 @@ export interface SiteConfig {
     categories: ToolCategory[];
     components: ToolComponent[];
   };
+  blog?: BlogData;
   footer: {
     cta: string;
     community: string;

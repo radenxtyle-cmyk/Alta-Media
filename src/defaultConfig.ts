@@ -82,6 +82,36 @@ export const defaultConfig: SiteConfig = {
       { id: '7', title: '3d Holographic Deck', description: '3D layer showcase featurin...', categoryId: 'charts', isFree: true }
     ]
   },
+  blog: {
+    title: 'How to Make Animated Gradient Form in HTML, CSS & JavaScript',
+    views: '9,850',
+    description: 'In this comprehensive tutorial, we will build a production-ready, fully responsive **Animated Gradient Form** from scratch using **HTML5, CSS3, and modern JavaScript (ES6+)**.',
+    aboutText: 'This project is a modern and responsive login form designed with HTML, CSS, and Font Awesome icons, featuring a clean and attractive UI. It includes animated background gradients, sleek input fields, and a "Login" button, along with options for saving login information and password recovery. The design incorporates engaging animations, a blur effect for visual depth, and easy navigation with social media links. This project is beginner-friendly, demonstrating key web development concepts like form handling, responsive design, and basic animations, while also being visually professional and aesthetically pleasing.',
+    price: 'FREE',
+    techStack: 'HTML5 / CSS3 / JS',
+    sourceAssets: '20+ Files Included',
+    htmlCode: `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Link to Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Form Wrapper -->
+    <div class="container">
+        <form action="">
+            <h2>Login Here</h2>
+            <div class="input-group">
+                <input type="text" required>
+            </div>
+        </form>
+    </div>
+</body>
+</html>`
+  },
   footer: {
     cta: 'Start with free notes — master with premium notes.',
     community: 'Join the Community',
